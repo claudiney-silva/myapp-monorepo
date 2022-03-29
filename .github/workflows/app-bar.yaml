@@ -57,17 +57,23 @@ jobs:
           #push: ${{ github.ref == 'refs/heads/main' }}
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps-bar:latest
-            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps-bar:${{ github.run_number }}
-            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps-bar:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:latest
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:${{ github.run_number }}
 
-      #- name: Build and publish Docker image
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #  run: |
-      #    docker build --tag ${IMAGE} --build-arg JAR_PATH=apps/bar/target/app.jar .
-      #    docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-      #    docker push ${IMAGE}
+      - name: OKTeto - Login
+        uses: okteto/login@master
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+
+      - name: OKTeto - Activate Namespace
+        uses: okteto/namespace@master
+        with:
+          namespace: claudiney-silva
+
+      - name: OKTeto - Create deployment
+        uses: okteto/apply@master
+        with:
+          manifest: k8s
 
 # We had a custom GitHub Action to deploy to our Kubernetes cluster.
 # Examples:
