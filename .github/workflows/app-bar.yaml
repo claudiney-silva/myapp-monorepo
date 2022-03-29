@@ -57,9 +57,9 @@ jobs:
           #push: ${{ github.ref == 'refs/heads/main' }}
           push: true
           tags: |
-            ${{ github.repository }}-apps-bar:latest
-            ${{ github.repository }}-apps-bar:${{ github.run_number }}
-            ${{ github.repository }}-apps-bar:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps-bar:latest
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps-bar:${{ github.run_number }}
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps-bar:${{ github.sha }}
 
       #- name: Build and publish Docker image
       #  env:
