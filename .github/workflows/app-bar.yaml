@@ -8,6 +8,16 @@ on:
       - 'feat/*'
     paths:
       - 'apps/bar/**'
+  pull_request:
+    branches:
+      - 'master'
+      - 'develop'
+      - 'feat/*'
+    paths:
+      - 'apps/bar/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 #env:
 #  IMAGE: docker.pkg.github.com/${{ github.repository }}/bar:${{ github.sha }}
@@ -19,20 +29,24 @@ jobs:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feat')
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
+
       - name: Cache Depdendencies
         uses: actions/cache@v2.1.5
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
+
       - name: JDK
         uses: actions/setup-java@v2.1.0
         with:
           distribution: 'zulu'
           java-version: 11
+
       - name: Build
         run: mvn clean package --projects :bar --also-make --threads=2 --batch-mode
+
       #- name: Build and publish Docker image
       #  env:
       #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

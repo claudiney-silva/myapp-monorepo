@@ -36,6 +36,7 @@ public class BarApplication {
 
 	@GetMapping("fooByProxy")
 	FooDto foo() {
+		log.info("Foo by proxy");
 		var restTemplate = new RestTemplate(); // Yes, should be a bean.
 		return restTemplate.getForObject("http://localhost:8082/foo", FooDto.class);
 	}
