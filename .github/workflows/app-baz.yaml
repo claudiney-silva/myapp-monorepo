@@ -29,6 +29,7 @@ jobs:
       - name: JDK
         uses: actions/setup-java@v2.1.0
         with:
+          distribution: 'temurin'
           java-version: 11
       - name: Build
         run: mvn clean package --projects :baz --also-make --threads=2 --batch-mode
