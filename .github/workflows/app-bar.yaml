@@ -57,8 +57,8 @@ jobs:
           #push: ${{ github.ref == 'refs/heads/main' }}
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}.apps.bar:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}.apps.bar:${{ github.sha }}
+            ${{ github.repository }}.apps.bar:latest
+            ${{ github.repository }}.apps.bar:${{ github.sha }}
 
       #- name: Build and publish Docker image
       #  env:
