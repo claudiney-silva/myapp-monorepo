@@ -24,7 +24,7 @@ public class BarApplication {
 
 	@GetMapping("bar")
 	BarDto bar() {
-		log.info("Bar");
+		log.info("Bar...");
 		return BarDto.builder().id(UUID.randomUUID().toString()).barAttribute("barValue").build();
 	}
 
