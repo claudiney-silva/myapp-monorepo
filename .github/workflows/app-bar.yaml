@@ -51,15 +51,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image and push to Docker Hub and GitHub Container Registry
-          uses: docker/build-push-action@v2
-          with:
-            context: ./apps/bar
-            #push: ${{ github.ref == 'refs/heads/main' }}
-            push: true
-            tags: |
-              ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}/bar:latest
-              ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:${{ github.sha }}
-
+        uses: docker/build-push-action@v2
+        with:
+          context: ./apps/bar
+          #push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}/bar:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:${{ github.sha }}
 
       #- name: Build and publish Docker image
       #  env:
