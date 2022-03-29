@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s
+  name: K8S java-monorepo
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: k8s-api
+      app: bar
   template:
     metadata:
       labels:
-        app: k8s-api
+        app: bar
     spec:
       containers:
-        - name: k8s-api
+        - name: bar
           image: claudineysilva/java-monorepo.apps.bar:latest
           resources:
             limits:
