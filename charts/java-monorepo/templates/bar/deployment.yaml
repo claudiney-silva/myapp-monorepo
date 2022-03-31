@@ -12,8 +12,6 @@ spec:
     metadata:
       labels:
         app: bar
-      checksum/config: {{ include (print $.Template.BasePath "/bar/configmap.yaml") . | sha256sum }}
-      checksum/secret: {{ include (print $.Template.BasePath "/bar/secrets.yaml") . | sha256sum }}
     spec:
       containers:
         - name: bar
