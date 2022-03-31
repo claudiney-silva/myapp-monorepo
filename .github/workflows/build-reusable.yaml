@@ -7,10 +7,8 @@ on:
     secrets:
       docker-username:
         required: true
-        type: string
       docker-token:
         required: true
-        type: string
 
 jobs:
   build-test-image:
