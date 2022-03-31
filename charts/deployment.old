@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-monorepo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bar
+  template:
+    metadata:
+      labels:
+        app: bar
+    spec:
+      containers:
+        - name: bar
+          image: claudineysilva/java-monorepo.apps.bar:latest
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CASSANDRA_HOST
+              value: "cassandra"

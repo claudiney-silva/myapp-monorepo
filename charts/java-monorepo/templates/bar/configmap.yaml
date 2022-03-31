@@ -1,0 +1,10 @@
+{{- if .Values.boletoProviderCore.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bar-config
+data:
+  {{- range $name, $value := .Values.bar.env.open }}
+  {{ $name }}: {{ $value | quote }}
+  {{- end -}}
+  {{- end }}

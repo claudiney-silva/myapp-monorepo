@@ -1,0 +1,72 @@
+redis:
+  # -- Enabled rabbitmq
+  enabled: true
+  # -- String to fully override common.names.fullname template with a string
+  fullnameOverride: redis
+  master:
+    # -- Add Pod Annotations
+    podAnnotations: {}
+    #linkerd.io/inject: enabled
+  replica:
+    # -- Number of Redis(TM) replicas to deploy
+    replicaCount: 1
+    # -- Add Pod Annotations
+    podAnnotations: {}
+    # linkerd.io/inject: enabled
+  # -- Redis(TM) architecture. Allowed values: standalone or replication
+  architecture: replication
+  # --  Disable password redis
+  usePassword: false
+  auth:
+    # -- Enable password authentication
+    enabled: false
+    # -- Enable password authentication on sentinels too
+    sentinel: false
+    # -- Redis(TM) password
+    #password: test123
+  metrics:
+    # -- Enable exposing RabbitMQ metrics to be gathered by Prometheus
+    enabled: false
+    serviceMonitor:
+      # -- Set this to true to create ServiceMonitor for Prometheus operator
+      enabled: false
+      # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
+      additionalLabels:
+        release: kube-prometheus-stack
+
+bar:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: claudineysilva/java-monorepo.apps.bar
+    tag: latest
+    pullPolicy: Always
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 80
+    containerPort: 3000
+  ingress:
+    # -- Enabled ingress
+    enabled: false
+    # - Annotations for use ingress
+    annotations: {}
+    # -- Hosts list
+    hosts:
+      - name: example.com
+        path: /
+        pathType: ImplementationSpecific
+        serviceName: bar
+        servicePort: 80
+  resources: {}
+    #limits:
+    #  cpu: 200m
+    #  memory: 300Mi
+    #requests:
+    #  cpu: 200m
+    #memory: 300Mi
+  env:
+    open:
+      VAR_SAMPLE: Teste
+    secret:
+      SECRET_SAMPLE: Segredo

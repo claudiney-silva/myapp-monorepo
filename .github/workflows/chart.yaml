@@ -1,0 +1,19 @@
+name: Chart deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prep helm chart
+        run: |
+          echo -e "\r\nappVersion: v${GITHUB_REF##*/}\r\n" >> test.yaml &&
+          cat test.yaml
+      - name: Deploy
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade APP_NAME ./charts/java-monorepo/ --install --wait --atomic --namespace=java-monorepo1 --set=app.name=my-app --values=./charts/java-monorepo/values.yaml
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
