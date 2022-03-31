@@ -22,26 +22,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-bar:
+  app-bar:
     uses: ./.github/workflows/build-reusable.yaml
     with:
-      appname: bar
+      app-name: bar
+      docker-username: ${{ secrets.DOCKER_USERNAME }}
+      docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  build-baz:
+  app-baz:
     uses: ./.github/workflows/build-reusable.yaml
     with:
-      appname: baz
+      app-name: baz
+      docker-username: ${{ secrets.DOCKER_USERNAME }}
+      docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  build-foo:
+  app-foo:
     uses: ./.github/workflows/build-reusable.yaml
     with:
-      appname: foo
+      app-name: foo
+      docker-username: ${{ secrets.DOCKER_USERNAME }}
+      docker-token: ${{ secrets.DOCKER_TOKEN }}
 
   deploy:
     needs:
-      - 'build-bar'
-      - 'build-baz'
-      - 'build-foo'
+      - 'app-bar'
+      - 'app-baz'
+      - 'app-foo'
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
