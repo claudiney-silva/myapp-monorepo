@@ -1,6 +1,8 @@
 zookeeper:
   enabled: true
   fullnameOverride: zookeeper
+  persistence:
+    size: 500Mi
 
 kafka:
   enabled: true
@@ -23,7 +25,7 @@ redis:
   fullnameOverride: redis
   master:
     persistence:
-      size: 1Gi
+      size: 500Mi
   architecture: standalone
   usePassword: false
   auth:
