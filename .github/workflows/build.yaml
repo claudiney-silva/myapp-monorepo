@@ -22,7 +22,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-bar:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       appname: bar
+
+  build-baz:
+    uses: ./.github/workflows/build-reusable.yaml
+    with:
+      appname: baz
+
+  build-foo:
+    uses: ./.github/workflows/build-reusable.yaml
+    with:
+      appname: foo
+
+  deploy:
+    needs:
+      - 'build-bar'
+      - 'build-baz'
+      - 'build-foo'
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy....
+        run: echo Deploy app
