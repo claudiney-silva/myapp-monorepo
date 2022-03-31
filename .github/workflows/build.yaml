@@ -26,6 +26,7 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: bar
+    secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
@@ -33,6 +34,7 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: baz
+    secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
@@ -40,6 +42,7 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: foo
+    secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
@@ -48,7 +51,7 @@ jobs:
       - 'app-bar'
       - 'app-baz'
       - 'app-foo'
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy....
