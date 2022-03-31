@@ -1,3 +1,7 @@
+kafka:
+  enabled: true
+  fullnameOverride: kafka
+
 mongodb:
   enabled: true
   fullnameOverride: mongodb
@@ -9,42 +13,17 @@ mongodb:
     size: 2Gi
 
 redis:
-  # -- Enabled redis
   enabled: true
-  # -- String to fully override common.names.fullname template with a string
   fullnameOverride: redis
   master:
-    # -- Add Pod Annotations
-    podAnnotations: {}
-    #linkerd.io/inject: enabled
     persistence:
       size: 1Gi
-  replica:
-    # -- Number of Redis(TM) replicas to deploy
-    replicaCount: 1
-    # -- Add Pod Annotations
-    podAnnotations: {}
-    # linkerd.io/inject: enabled
-  # -- Redis(TM) architecture. Allowed values: standalone or replication
   architecture: standalone
-  # --  Disable password redis
   usePassword: false
   auth:
-    # -- Enable password authentication
     enabled: false
-    # -- Enable password authentication on sentinels too
     sentinel: false
-    # -- Redis(TM) password
     #password: test123
-  metrics:
-    # -- Enable exposing RabbitMQ metrics to be gathered by Prometheus
-    enabled: false
-    serviceMonitor:
-      # -- Set this to true to create ServiceMonitor for Prometheus operator
-      enabled: false
-      # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
-      additionalLabels:
-        release: kube-prometheus-stack
 
 bar:
   enabled: true

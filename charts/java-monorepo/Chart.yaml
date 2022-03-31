@@ -3,11 +3,15 @@ name: java-monorepo
 description: Chart for the java monorepo app
 version: 0.0.1
 dependencies:
-  - name: "redis"
-    version: "16.3.0"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: redis.enabled
   - name: "mongodb"
     version: "4.4.13"
     repository: "https://charts.bitnami.com/bitnami"
     condition: mongodb.enabled
+  - name: "kafka"
+    version: "3.1.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: kafka.enabled
+  - name: "redis"
+    version: "16.3.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
