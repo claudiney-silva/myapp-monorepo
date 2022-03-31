@@ -25,7 +25,7 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feat')
+    #if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feat')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
