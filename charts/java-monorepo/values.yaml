@@ -1,11 +1,11 @@
 mongodb:
   # -- Enabled mongodb
-  enabled: true
+  enabled: false
   fullnameOverride: mongodb
 
 redis:
   # -- Enabled redis
-  enabled: false
+  enabled: true
   # -- String to fully override common.names.fullname template with a string
   fullnameOverride: redis
   master:
@@ -19,7 +19,7 @@ redis:
     podAnnotations: {}
     # linkerd.io/inject: enabled
   # -- Redis(TM) architecture. Allowed values: standalone or replication
-  architecture: replication
+  architecture: standalone
   # --  Disable password redis
   usePassword: false
   auth:
