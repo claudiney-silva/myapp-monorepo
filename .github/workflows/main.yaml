@@ -1,4 +1,4 @@
-name: Build, Deploy Foo
+name: Build, Deploy Bar
 
 on:
   push:
@@ -7,39 +7,64 @@ on:
       - 'develop'
       - 'feat/*'
     paths:
-      - 'apps/foo/**'
+      - 'apps/**'
+      - 'libs/**'
+  pull_request:
+    branches:
+      - 'master'
+      - 'develop'
+      - 'feat/*'
+    paths:
+      - 'apps/**'
+      - 'libs/**'
 
-#env:
-#  IMAGE: docker.pkg.github.com/${{ github.repository }}/foo:${{ github.sha }}
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
-  build-jar-docker:
-    name: build-jar-docker
+  build:
+    name: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feat')
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
+
       - name: Cache Depdendencies
         uses: actions/cache@v2.1.5
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
-      - name: JDK
+
+      - name: Setup JDK
         uses: actions/setup-java@v2.1.0
         with:
           distribution: 'zulu'
           java-version: 11
+
       - name: Build
-        run: mvn clean package --projects :foo --also-make --threads=2 --batch-mode
-      #- name: Build and publish Docker image
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #  run: |
-      #    docker build --tag ${IMAGE} --build-arg JAR_PATH=apps/foo/target/app.jar .
-      #    docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-      #    docker push ${IMAGE}
+        run: mvn clean package --projects :bar --also-make --threads=2 --batch-mode
+
+      - name: Docker - Login to Container Registry
+        if: github.ref == 'refs/heads/master'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Docker - Build image and push to Container Registry
+        uses: docker/build-push-action@v2
+        with:
+          context: ./apps/bar
+          #push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:latest
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:${{ github.run_number }}
+
+
+
 
 # We had a custom GitHub Action to deploy to our Kubernetes cluster.
 # Examples:
