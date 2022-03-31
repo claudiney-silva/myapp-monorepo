@@ -54,41 +54,19 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Docker - Build image and push to Container Registry
+        if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v2
         with:
           context: ./apps/bar
-          #push: ${{ github.ref == 'refs/heads/main' }}
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:latest
             ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:${{ github.run_number }}
 
-
-
-
-# We had a custom GitHub Action to deploy to our Kubernetes cluster.
-# Examples:
-#
-#  deploy-dev:
-#    name: Deploy to Dev
-#    needs: build-jar-docker
-#    if: startsWith(github.ref, 'refs/heads/dev') || github.ref == 'refs/heads/master'
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2.3.4
-#      - uses: Deploy Action
-#        env:
-#          CLUSTER: dev-fss
-#          RESOURCE: Points to k8s resource
-#
-#  deploy-prod:
-#    name: Deploy to Prod
-#    needs: build-jar-docker
-#    if: github.ref == 'refs/heads/master'
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2.3.4
-#      - uses:Deploy Action
-#        env:
-#          CLUSTER: prod-fss
-#          RESOURCE: Points to k8s resource
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy....
+        run: echo Deploy app
