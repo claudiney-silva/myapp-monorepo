@@ -1,3 +1,7 @@
+zookeeper:
+  enabled: true
+  fullnameOverride: zookeeper
+
 kafka:
   enabled: true
   fullnameOverride: kafka
