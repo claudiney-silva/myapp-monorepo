@@ -1,0 +1,31 @@
+{{- if .Values.baz.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo
+spec:
+  replicas: {{ .Values.foo.replicaCount }}
+  selector:
+    matchLabels:
+      app: foo
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      containers:
+        - name: foo
+          image: "{{ .Values.foo.image.repository }}:{{ .Values.foo.image.tag }}"
+          imagePullPolicy: {{ .Values.foo.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.foo.service.containerPort }}
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: foo-secret
+            - configMapRef:
+                name: foo-config
+          resources:
+            {{- toYaml .Values.foo.resources | nindent 12 }}
+{{- end }}

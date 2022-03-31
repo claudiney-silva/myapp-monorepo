@@ -14,7 +14,6 @@ on:
 
 jobs:
   build-test-image:
-    name: build-test-image
     runs-on: ubuntu-latest
 
     steps:

@@ -1,0 +1,10 @@
+{{- if .Values.foo.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: foo-config
+data:
+  {{- range $name, $value := .Values.foo.env.open }}
+  {{ $name }}: {{ $value | quote }}
+  {{- end -}}
+  {{- end }}

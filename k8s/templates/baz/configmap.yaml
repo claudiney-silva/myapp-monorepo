@@ -1,0 +1,10 @@
+{{- if .Values.baz.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: baz-config
+data:
+  {{- range $name, $value := .Values.baz.env.open }}
+  {{ $name }}: {{ $value | quote }}
+  {{- end -}}
+  {{- end }}

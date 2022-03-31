@@ -1,0 +1,20 @@
+{{- if .Values.foo.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: boleto-provider-core
+spec:
+  rules:
+  {{- range .Values.foo.ingress.hosts }}
+  - host: {{ .name }}
+    http:
+      paths:
+        - path: {{ default "/" .path }}
+          pathType: {{ default "ImplementationSpecific" .pathType }}
+          backend:
+            service:
+              name: {{ default "foo" .serviceName }}
+              port:
+                number: {{ default 80  .servicePort }}
+  {{- end }}
+{{- end }}

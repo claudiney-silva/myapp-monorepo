@@ -1,0 +1,31 @@
+{{- if .Values.baz.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baz
+spec:
+  replicas: {{ .Values.baz.replicaCount }}
+  selector:
+    matchLabels:
+      app: baz
+  template:
+    metadata:
+      labels:
+        app: baz
+    spec:
+      containers:
+        - name: baz
+          image: "{{ .Values.baz.image.repository }}:{{ .Values.baz.image.tag }}"
+          imagePullPolicy: {{ .Values.baz.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.baz.service.containerPort }}
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: baz-secret
+            - configMapRef:
+                name: baz-config
+          resources:
+            {{- toYaml .Values.baz.resources | nindent 12 }}
+{{- end }}

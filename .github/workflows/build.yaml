@@ -46,7 +46,7 @@ jobs:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  deploy:
+  deploy-helm-chart:
     needs:
       - 'app-bar'
       - 'app-baz'
@@ -54,5 +54,17 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy....
-        run: echo Deploy app
+      #- name: Deploy....
+      #  run: echo Deploy app
+
+      - uses: actions/checkout@v3
+      - name: Prep helm chart
+        run: |
+          echo -e "\r\nappVersion: v${GITHUB_REF##*/}\r\n" >> test.yaml &&
+          cat test.yaml
+
+      - name: Deploy
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade java-monorepo ./k8s/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./k8s/values.yaml
+          kubeconfig: '${{ secrets.KUBECONFIG }}'

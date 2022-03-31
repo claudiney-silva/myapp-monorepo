@@ -44,7 +44,7 @@ bar:
     enabled: true
     type: ClusterIP
     port: 80
-    containerPort: 3000
+    containerPort: 8080
   ingress:
     # -- Enabled ingress
     enabled: false
@@ -64,6 +64,80 @@ bar:
     #requests:
     #  cpu: 200m
     #memory: 300Mi
+  env:
+    open:
+      VAR_SAMPLE: Teste
+    secret:
+      SECRET_SAMPLE: Segredo
+
+baz:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: claudineysilva/java-monorepo.apps.baz
+    tag: latest
+    pullPolicy: Always
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 80
+    containerPort: 8081
+  ingress:
+    # -- Enabled ingress
+    enabled: false
+    # - Annotations for use ingress
+    annotations: {}
+    # -- Hosts list
+    hosts:
+      - name: example.com
+        path: /
+        pathType: ImplementationSpecific
+        serviceName: bar
+        servicePort: 80
+  resources: {}
+    #limits:
+    #  cpu: 200m
+    #  memory: 300Mi
+    #requests:
+    #  cpu: 200m
+  #memory: 300Mi
+  env:
+    open:
+      VAR_SAMPLE: Teste
+    secret:
+      SECRET_SAMPLE: Segredo
+
+foo:
+  enabled: true
+  replicaCount: 2
+  image:
+    repository: claudineysilva/java-monorepo.apps.foo
+    tag: latest
+    pullPolicy: Always
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 80
+    containerPort: 8082
+  ingress:
+    # -- Enabled ingress
+    enabled: false
+    # - Annotations for use ingress
+    annotations: {}
+    # -- Hosts list
+    hosts:
+      - name: example.com
+        path: /
+        pathType: ImplementationSpecific
+        serviceName: bar
+        servicePort: 80
+  resources: {}
+    #limits:
+    #  cpu: 200m
+    #  memory: 300Mi
+    #requests:
+    #  cpu: 200m
+  #memory: 300Mi
   env:
     open:
       VAR_SAMPLE: Teste
