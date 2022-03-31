@@ -30,3 +30,4 @@ spec:
                 name: bar-config
           resources:
             {{- toYaml .Values.bar.resources | nindent 12 }}
+{{- end }}
