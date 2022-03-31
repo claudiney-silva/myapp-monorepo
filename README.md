@@ -1,4 +1,4 @@
-# java-monorepo
+# Java Monorepo
 
 <p align="left">
   <img alt="Bar" src="https://github.com/claudiney-silva/java-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
