@@ -1,0 +1,15 @@
+{{- if .Values.bar.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: bar
+spec:
+  type: {{ .Values.bar.service.type }}
+  selector:
+    app: bar
+  ports:
+    - port: {{ .Values.bar.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- end }}

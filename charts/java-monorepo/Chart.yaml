@@ -1,0 +1,9 @@
+apiVersion: v2
+name: java-monorepo-chart
+description: Chart for the java monorepo app
+version: 0.0.1
+dependencies:
+  - name: "redis"
+    version: "16.3.0"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
