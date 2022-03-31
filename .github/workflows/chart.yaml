@@ -15,5 +15,5 @@ jobs:
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v2
         with:
-          exec: helm upgrade APP_NAME ./charts/java-monorepo/ --install --wait --atomic --namespace=java-monorepo1 --set=app.name=my-app --values=./charts/java-monorepo/values.yaml
+          exec: helm upgrade java-monorepo ./charts/java-monorepo/ --install --wait --atomic --namespace=java-monorepo1 --set=app.name=my-app --values=./charts/java-monorepo/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
