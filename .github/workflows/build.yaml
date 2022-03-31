@@ -3,7 +3,7 @@ name: Reusing Build, Image and Deploy
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
       - 'develop'
       - 'feat/*'
     paths:
@@ -11,7 +11,7 @@ on:
       - 'libs/**'
   pull_request:
     branches:
-      - 'master'
+      - 'main'
       - 'develop'
       - 'feat/*'
     paths:
