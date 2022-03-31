@@ -1,6 +1,5 @@
 mongodb:
   enabled: true
-  nameOverride: mongo
   fullnameOverride: mongodb
   auth:
     enabled: true
@@ -8,7 +7,6 @@ mongodb:
     rootPassword: test123
   persistence:
     size: 2Gi
-
 
 redis:
   # -- Enabled redis
