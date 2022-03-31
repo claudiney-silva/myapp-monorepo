@@ -1,6 +1,6 @@
 zookeeper:
   enabled: true
-  fullnameOverride: zookeeper
+  fullnameOverride: java-monorepo-zookeeper
   persistence:
     size: 500Mi
 
