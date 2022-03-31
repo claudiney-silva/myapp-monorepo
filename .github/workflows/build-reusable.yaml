@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      appname:
+      app-name:
         required: true
         type: string
     secrets:
@@ -33,7 +33,7 @@ jobs:
           java-version: 11
 
       - name: Build
-        run: mvn clean package --projects :${{ inputs.appname }} --also-make --threads=2 --batch-mode
+        run: mvn clean package --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
 
       - name: Docker - Login to Container Registry
         if: github.ref == 'refs/heads/main'
@@ -46,8 +46,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v2
         with:
-          context: ./apps/${{ inputs.appname }}
+          context: ./apps/${{ inputs.app-name }}
           push: true
           tags: |
-            ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.appname }}:latest
-            ${{ secrets.docker-token }}/java-monorepo.apps.${{ inputs.appname }}:${{ github.run_number }}
+            ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:latest
+            ${{ secrets.docker-token }}/java-monorepo.apps.${{ inputs.app-name }}:${{ github.run_number }}
