@@ -1,6 +1,10 @@
-redis:
-  # -- Enabled rabbitmq
+mongodb:
+  # -- Enabled mongodb
   enabled: true
+
+redis:
+  # -- Enabled redis
+  enabled: false
   # -- String to fully override common.names.fullname template with a string
   fullnameOverride: redis
   master:
