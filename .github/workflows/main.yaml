@@ -1,4 +1,4 @@
-name: Build, Deploy Bar
+name: Build, Image and Deploy
 
 on:
   push:
