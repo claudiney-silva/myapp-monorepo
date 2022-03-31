@@ -70,10 +70,10 @@ jobs:
       #  with:
       #    namespace: claudiney-silva
 
-      - name: OKTeto - Create deployment
-        uses: okteto/apply@master
-        with:
-          manifest: k8s
+      #- name: OKTeto - Create deployment
+      #  uses: okteto/apply@master
+      #  with:
+      #    manifest: k8s
 
       - name: Install Helm
         uses: Azure/setup-helm@v1
