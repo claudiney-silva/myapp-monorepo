@@ -1,7 +1,14 @@
 mongodb:
-  # -- Enabled mongodb
-  enabled: false
+  enabled: true
+  nameOverride: mongo
   fullnameOverride: mongodb
+  auth:
+    enabled: true
+    rootUser: root
+    rootPassword: test123
+  persistence:
+    size: 2Gi
+
 
 redis:
   # -- Enabled redis
@@ -43,7 +50,7 @@ redis:
 
 bar:
   enabled: true
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: claudineysilva/java-monorepo.apps.bar
     tag: latest
