@@ -1,0 +1,20 @@
+name: Test deploy
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - 'develop'
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prep helm chart
+        run: |
+          echo -e "\r\nappVersion: v${GITHUB_REF##*/}\r\n" >> test.yaml &&
+          cat test.yaml
+          
