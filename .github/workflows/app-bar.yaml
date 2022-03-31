@@ -70,15 +70,15 @@ jobs:
       #  with:
       #    namespace: claudiney-silva
 
-      #- name: OKTeto - Create deployment
-      #  uses: okteto/apply@master
-      #  with:
-      #    manifest: k8s
+      - name: OKTeto - Create deployment
+        uses: okteto/apply@master
+        with:
+          manifest: k8s
 
       - name: Install Helm
-          uses: Azure/setup-helm@v1
-          with:
-            version: v3.3.1
+        uses: Azure/setup-helm@v1
+        with:
+          version: v3.3.1
 
 
 # We had a custom GitHub Action to deploy to our Kubernetes cluster.
