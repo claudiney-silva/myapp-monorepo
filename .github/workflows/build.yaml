@@ -1,0 +1,28 @@
+name: !!!Build, Image and Deploy
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+      - 'feat/*'
+    paths:
+      - 'apps/**'
+      - 'libs/**'
+  pull_request:
+    branches:
+      - 'master'
+      - 'develop'
+      - 'feat/*'
+    paths:
+      - 'apps/**'
+      - 'libs/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-reusable.yaml
+    with:
+      appname: bar

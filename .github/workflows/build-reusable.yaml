@@ -1,32 +1,15 @@
-name: Build, Image and Deploy
-
 on:
-  push:
-    branches:
-      - 'master'
-      - 'develop'
-      - 'feat/*'
-    paths:
-      - 'apps/**'
-      - 'libs/**'
-  pull_request:
-    branches:
-      - 'master'
-      - 'develop'
-      - 'feat/*'
-    paths:
-      - 'apps/**'
-      - 'libs/**'
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      appname:
+        required: true
+        type: string
 
 jobs:
-
   build:
     name: build
     runs-on: ubuntu-latest
-    #if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/feat')
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -45,7 +28,7 @@ jobs:
           java-version: 11
 
       - name: Build
-        run: mvn clean package --projects :bar --also-make --threads=2 --batch-mode
+        run: mvn clean package --projects :${{ inputs.appname }} --also-make --threads=2 --batch-mode
 
       - name: Docker - Login to Container Registry
         if: github.ref == 'refs/heads/master'
@@ -58,16 +41,8 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v2
         with:
-          context: ./apps/bar
+          context: ./apps/${{ inputs.appname }}
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:latest
-            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:${{ github.run_number }}
-
-  deploy:
-    needs: build
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy....
-        run: echo Deploy app
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.${{ inputs.appname }}:latest
+            ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.${{ inputs.appname }}:${{ github.run_number }}
