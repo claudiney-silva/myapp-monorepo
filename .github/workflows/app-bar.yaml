@@ -60,21 +60,6 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:latest
             ${{ secrets.DOCKER_USERNAME }}/java-monorepo.apps.bar:${{ github.run_number }}
 
-      #- name: OKTeto - Login
-      #  uses: okteto/login@master
-      #  with:
-      #    token: ${{ secrets.OKTETO_TOKEN }}
-
-      #- name: OKTeto - Activate Namespace
-      #  uses: okteto/namespace@master
-      #  with:
-      #    namespace: claudiney-silva
-
-      #- name: OKTeto - Create deployment
-      #  uses: okteto/apply@master
-      #  with:
-      #    manifest: k8s
-
       - name: 'Deploy'
           uses: 'deliverybot/helm@master'
           with:
