@@ -1,6 +1,7 @@
 mongodb:
   # -- Enabled mongodb
   enabled: true
+  fullnameOverride: mongodb
 
 redis:
   # -- Enabled redis
