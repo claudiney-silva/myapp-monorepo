@@ -18,7 +18,7 @@ public class FooApplication {
 
 	@GetMapping("foo")
 	FooDto foo() {
-		return FooDto.builder().id(UUID.randomUUID().toString()).fooAttribute("fooValue!").build();
+		return FooDto.builder().id(UUID.randomUUID().toString()).fooAttribute("fooValue").build();
 	}
 
 
