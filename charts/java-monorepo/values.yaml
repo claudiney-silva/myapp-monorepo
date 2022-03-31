@@ -1,6 +1,8 @@
 kafka:
   enabled: true
   fullnameOverride: kafka
+  persistence:
+    size: 1Gi
 
 mongodb:
   enabled: true
@@ -10,7 +12,7 @@ mongodb:
     rootUser: root
     rootPassword: test123
   persistence:
-    size: 2Gi
+    size: 1Gi
 
 redis:
   enabled: true
