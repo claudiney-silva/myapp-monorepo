@@ -1,4 +1,4 @@
-name: !!!Build, Image and Deploy
+name: Reusing Build, Image and Deploy
 
 on:
   push:
