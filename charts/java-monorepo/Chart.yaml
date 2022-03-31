@@ -1,5 +1,5 @@
 apiVersion: v2
-name: java-monorepo-chart
+name: java-monorepo
 description: Chart for the java monorepo app
 version: 0.0.1
 dependencies:

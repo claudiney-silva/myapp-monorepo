@@ -12,6 +12,8 @@ redis:
     # -- Add Pod Annotations
     podAnnotations: {}
     #linkerd.io/inject: enabled
+    persistence:
+      size: 1Gi
   replica:
     # -- Number of Redis(TM) replicas to deploy
     replicaCount: 1
