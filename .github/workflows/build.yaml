@@ -9,11 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
+
   app-bar:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: bar
-      app-tag: ${GITHUB_REF##*/}
     secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
@@ -22,7 +22,6 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: baz
-      app-tag: ${GITHUB_REF##*/}
     secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
@@ -31,7 +30,6 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: foo
-      app-tag: ${GITHUB_REF##*/}
     secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
@@ -41,7 +39,7 @@ jobs:
       - 'app-bar'
       - 'app-baz'
       - 'app-foo'
-    if: startsWith(github.ref, 'refs/tags')
+    #if: startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     steps:
 
