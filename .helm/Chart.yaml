@@ -1,7 +1,7 @@
 apiVersion: v2
 name: java-monorepo
 description: Chart for the java monorepo app
-version: 0.0.1
+version: appVersion
 dependencies:
   - name: "mongodb"
     version: "4.4.13"
