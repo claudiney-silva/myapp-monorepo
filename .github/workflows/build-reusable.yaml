@@ -20,6 +20,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Prepare
+        run: |
+          echo "ENVIRONMENT=${GITHUB_REF##*/}" >> $TAG_VERSION
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -54,4 +58,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:latest
-            ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:${{ inputs.app-tag }}
+            ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:${{ TAG_VERSION }}
