@@ -54,4 +54,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:latest
-            ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:${{ inputs.app-name }}
+            ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:${{ inputs.app-tag }}
