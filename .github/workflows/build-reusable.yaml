@@ -6,9 +6,6 @@ on:
       app-name:
         required: true
         type: string
-      app-tag:
-        required: true
-        type: string
     secrets:
       docker-username:
         required: true
@@ -22,7 +19,7 @@ jobs:
     steps:
       - name: Prepare
         run: |
-          echo "ENVIRONMENT=${GITHUB_REF##*/}" >> $TAG_VERSION
+          echo "TAG_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v3

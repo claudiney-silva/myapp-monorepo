@@ -14,7 +14,6 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: bar
-      app-tag: ${GITHUB_REF##*/}
     secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
@@ -23,7 +22,6 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: baz
-      app-tag: ${GITHUB_REF##*/}
     secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
@@ -32,7 +30,6 @@ jobs:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: foo
-      app-tag: ${GITHUB_REF##*/}
     secrets:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
