@@ -38,6 +38,11 @@ jobs:
           key: ${{ runner.os }}-maven-project
           restore-keys: ${{ runner.os }}-maven-project
 
+      - name: Ls
+        run: |
+          echo Listing folder &&
+          ls          
+
   test:
     needs:
       - 'build'
