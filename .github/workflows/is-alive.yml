@@ -1,0 +1,18 @@
+name: Container Registry Cleaner
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: echo Container Registry Cleaner
+
+      - name: Curl
+        run: |
+          echo "STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://www.google.com)" >> $GITHUB_ENV
+          echo Status code ${{env.STATUS_CODE}}

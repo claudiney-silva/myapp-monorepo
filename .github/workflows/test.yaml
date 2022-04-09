@@ -6,9 +6,9 @@ on:
       - 'main'
       - 'develop'
       - 'release/*'
-    #paths:
-    #  - 'apps/**'
-    #  - 'libs/**'
+    paths:
+      - 'apps/**'
+      - 'libs/**'
   pull_request:
     branches:
       - 'main'
@@ -17,6 +17,7 @@ on:
     paths:
       - 'apps/**'
       - 'libs/**'
+  workflow_dispatch:
 
 jobs:
   app-bar:
