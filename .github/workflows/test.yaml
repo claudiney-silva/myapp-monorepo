@@ -1,0 +1,35 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+      - 'release/*'
+    paths:
+      - 'apps/**'
+      - 'libs/**'
+  pull_request:
+    branches:
+      - 'main'
+      - 'develop'
+      - 'release/*'
+    paths:
+      - 'apps/**'
+      - 'libs/**'
+
+jobs:
+  app-bar:
+    uses: ./.github/workflows/test-reusable.yaml
+    with:
+      app-name: bar
+
+  app-baz:
+    uses: ./.github/workflows/test-reusable.yaml
+    with:
+      app-name: baz
+
+  app-foo:
+    uses: ./.github/workflows/test-reusable.yaml
+    with:
+      app-name: foo
