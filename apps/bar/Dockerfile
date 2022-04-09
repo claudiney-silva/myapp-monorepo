@@ -1,5 +1,4 @@
 FROM adoptopenjdk/openjdk11:alpine
-
 EXPOSE 8081
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
