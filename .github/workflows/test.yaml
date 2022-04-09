@@ -6,9 +6,9 @@ on:
       - 'main'
       - 'develop'
       - 'release/*'
-    paths:
-      - 'apps/**'
-      - 'libs/**'
+    #paths:
+    #  - 'apps/**'
+    #  - 'libs/**'
   pull_request:
     branches:
       - 'main'
