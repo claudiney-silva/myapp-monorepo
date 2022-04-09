@@ -8,7 +8,7 @@ on:
         type: string
 
 jobs:
-  build-test-image:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,5 +28,29 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - name: Build and Test
-        run: mvn clean test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
+      - name: Build
+        run: mvn clean compile --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
+
+      - name: Cache Code
+        uses: actions/cache@v2.1.5
+        with:
+          path: target
+          key: ${{ runner.os }}-maven-target
+          restore-keys: ${{ runner.os }}-maven-target
+
+    test:
+      needs:
+        - 'build'
+      runs-on: ubuntu-latest
+
+      steps:
+
+        - name: Restore Cache Code
+          uses: actions/cache@v2.1.5
+          with:
+            path: target
+            key: ${{ runner.os }}-maven-target
+            restore-keys: ${{ runner.os }}-maven-target
+
+      - name: Test
+        run: mvn test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
