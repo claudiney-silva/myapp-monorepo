@@ -37,8 +37,14 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - name: Build, Test and Package
-        run: mvn clean package --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
+      - name: Compile
+        run: mvn clean compile --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
+
+      - name: Test
+        run: mvn test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
+
+      - name: Build Package
+        run: mvn test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
 
       - name: Docker - Login to Container Registry
         #if: startsWith(github.ref, 'refs/tags')
