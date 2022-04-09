@@ -34,9 +34,9 @@ jobs:
       - name: Cache Code
         uses: actions/cache@v2.1.5
         with:
-          path: target
-          key: ${{ runner.os }}-maven-target
-          restore-keys: ${{ runner.os }}-maven-target
+          path: .
+          key: ${{ runner.os }}-maven-project
+          restore-keys: ${{ runner.os }}-maven-project
 
   test:
     needs:
@@ -48,9 +48,9 @@ jobs:
       - name: Restore Cache Code
         uses: actions/cache@v2.1.5
         with:
-          path: target
-          key: ${{ runner.os }}-maven-target
-          restore-keys: ${{ runner.os }}-maven-target
+          path: .
+          key: ${{ runner.os }}-maven-project
+          restore-keys: ${{ runner.os }}-maven-project
 
       - name: Test
         run: mvn test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
