@@ -34,7 +34,7 @@ jobs:
       - name: Cache Code
         uses: actions/cache@v2.1.5
         with:
-          path: .
+          path: ./
           key: ${{ runner.os }}-maven-project
           restore-keys: ${{ runner.os }}-maven-project
 
@@ -53,7 +53,7 @@ jobs:
       - name: Restore Cache Code
         uses: actions/cache@v2.1.5
         with:
-          path: .
+          path: ./
           key: ${{ runner.os }}-maven-project
           restore-keys: ${{ runner.os }}-maven-project
 
