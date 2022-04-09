@@ -57,5 +57,10 @@ jobs:
           key: ${{ runner.os }}-maven-project
           restore-keys: ${{ runner.os }}-maven-project
 
+      - name: Ls
+        run: |
+          echo Listing folder &&
+          ls   
+
       - name: Test
         run: mvn test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
