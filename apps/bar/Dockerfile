@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:alpine
+FROM adoptopenjdk/openjdk11
 EXPOSE 8081
 
 # AppDynamics Machine Agent
