@@ -37,7 +37,7 @@ redis:
     persistence:
       size: 500Mi
   # -- Redis(TM) architecture. Allowed values: standalone or replication
-  architecture: replication
+  architecture: standalone
   # --  Disable password redis
   usePassword: false
   auth:
