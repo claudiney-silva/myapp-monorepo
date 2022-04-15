@@ -10,4 +10,4 @@ USER spring:spring
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 # ENTRYPOINT ["java","-jar","/app.jar"]
-CMD ["java", "${JAVA_OPTS}", "-jar", "/app.jar"]
+CMD ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar"]
