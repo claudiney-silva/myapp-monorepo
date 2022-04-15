@@ -27,7 +27,7 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "java-monorepo.serviceAccountName" . }}
       containers:
-        - name: bar
+        - name: {{ .Values.appBar.label }}
           image: "{{ .Values.appBar.image.repository }}:{{ .Values.appBar.image.tag }}"
           imagePullPolicy: {{ .Values.appBar.image.pullPolicy }}
           ports:

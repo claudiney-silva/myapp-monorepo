@@ -1,4 +1,6 @@
 server.port: 8080
 
+management.endpoints.web.base-path: '/app-bar/actuator'
+
 app.baz: ${APP_BAZ:http://localhost:8081}
 app.foo: ${APP_FOO:http://localhost:8082}
