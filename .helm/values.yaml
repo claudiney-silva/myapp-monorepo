@@ -94,7 +94,7 @@ appBar:
     annotations: {}
     # -- Hosts list
     hosts:
-    - name: monorepo-claudiney-silva.cloud.okteto.net
+    - name: java-monorepo-claudiney-silva.cloud.okteto.net
       path: /app-bar
       pathType: Prefix
       serviceName: app-bar
@@ -210,7 +210,7 @@ appBaz:
     annotations: {}
     # -- Hosts list
     hosts:
-      - name: monorepo-claudiney-silva.cloud.okteto.net
+      - name: java-monorepo-claudiney-silva.cloud.okteto.net
         path: /app-baz
         pathType: Prefix
         serviceName: app-baz
@@ -319,12 +319,12 @@ appFoo:
     containerPort: 8082
   ingress:
     # -- Enabled ingress
-    enabled: false
+    enabled: true
     # - Annotations for use ingress
     annotations: {}
     # -- Hosts list
     hosts:
-      - name: monorepo-claudiney-silva.cloud.okteto.net
+      - name: java-monorepo-claudiney-silva.cloud.okteto.net
         path: /app-foo
         pathType: Prefix
         serviceName: app-foo
