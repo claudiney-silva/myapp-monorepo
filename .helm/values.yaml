@@ -29,7 +29,7 @@ redis:
     podAnnotations: {}
       #linkerd.io/inject: enabled
     persistence:
-      size: 5001Mi
+      size: 500Mi
   replica:
     # -- Number of Redis(TM) replicas to deploy
     replicaCount: 1
@@ -37,7 +37,7 @@ redis:
     podAnnotations: {}
      # linkerd.io/inject: enabled
     persistence:
-      size: 5001Mi
+      size: 500Mi
   # -- Redis(TM) architecture. Allowed values: standalone or replication
   architecture: standalone
   # --  Disable password redis
