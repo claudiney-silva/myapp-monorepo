@@ -35,7 +35,7 @@ redis:
     podAnnotations: {}
      # linkerd.io/inject: enabled
     persistence:
-      size: 500Mi
+      size: 1Gi
   # -- Redis(TM) architecture. Allowed values: standalone or replication
   architecture: standalone
   # --  Disable password redis
