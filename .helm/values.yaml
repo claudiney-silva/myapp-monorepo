@@ -28,14 +28,18 @@ redis:
     # -- Add Pod Annotations
     podAnnotations: {}
       #linkerd.io/inject: enabled
+    persistence:
+      size: 500Mi
   replica:
     # -- Number of Redis(TM) replicas to deploy
     replicaCount: 1
     # -- Add Pod Annotations
     podAnnotations: {}
      # linkerd.io/inject: enabled
+    persistence:
+      size: 500Mi
   # -- Redis(TM) architecture. Allowed values: standalone or replication
-  architecture: replication
+  architecture: standalone
   # --  Disable password redis
   usePassword: false
   auth:
@@ -92,7 +96,7 @@ appBar:
     annotations: {}
     # -- Hosts list
     hosts:
-    - name: monorepo-claudiney-silva.cloud.okteto.net
+    - name: java-monorepo-claudiney-silva.cloud.okteto.net
       path: /app-bar
       pathType: Prefix
       serviceName: app-bar
@@ -104,7 +108,7 @@ appBar:
     # -- Liveness configuration
   livenessProbe:
     httpGet:
-      path: /actuator/health
+      path: /app-bar/actuator/health
       port: 8080
     initialDelaySeconds: 30
     timeoutSeconds: 5
@@ -112,7 +116,7 @@ appBar:
   # -- Readiness configuration
   readinessProbe:
     httpGet:
-      path: /actuator/health
+      path: /app-bar/actuator/health
       port: 8080
     initialDelaySeconds: 30
     timeoutSeconds: 5
@@ -208,7 +212,7 @@ appBaz:
     annotations: {}
     # -- Hosts list
     hosts:
-      - name: monorepo-claudiney-silva.cloud.okteto.net
+      - name: java-monorepo-claudiney-silva.cloud.okteto.net
         path: /app-baz
         pathType: Prefix
         serviceName: app-baz
@@ -220,7 +224,7 @@ appBaz:
     # -- Liveness configuration
   livenessProbe:
     httpGet:
-      path: /actuator/health
+      path: /app-baz/actuator/health
       port: 8081
     initialDelaySeconds: 30
     timeoutSeconds: 5
@@ -228,7 +232,7 @@ appBaz:
   # -- Readiness configuration
   readinessProbe:
     httpGet:
-      path: /actuator/health
+      path: /app-baz/actuator/health
       port: 8081
     initialDelaySeconds: 30
     timeoutSeconds: 5
@@ -317,12 +321,12 @@ appFoo:
     containerPort: 8082
   ingress:
     # -- Enabled ingress
-    enabled: false
+    enabled: true
     # - Annotations for use ingress
     annotations: {}
     # -- Hosts list
     hosts:
-      - name: monorepo-claudiney-silva.cloud.okteto.net
+      - name: java-monorepo-claudiney-silva.cloud.okteto.net
         path: /app-foo
         pathType: Prefix
         serviceName: app-foo
@@ -334,7 +338,7 @@ appFoo:
     # -- Liveness configuration
   livenessProbe:
     httpGet:
-      path: /actuator/health
+      path: /app-foo/actuator/health
       port: 8082
     initialDelaySeconds: 30
     timeoutSeconds: 5
@@ -342,7 +346,7 @@ appFoo:
   # -- Readiness configuration
   readinessProbe:
     httpGet:
-      path: /actuator/health
+      path: /app-foo/actuator/health
       port: 8082
     initialDelaySeconds: 30
     timeoutSeconds: 5

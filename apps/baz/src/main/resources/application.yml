@@ -1,1 +1,3 @@
 server.port: 8081
+
+management.endpoints.web.base-path: '/app-baz/actuator'

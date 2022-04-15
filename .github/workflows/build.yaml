@@ -46,9 +46,9 @@ jobs:
       - name: Prep helm chart
         run: |
           mv ./.helm/Chart.yaml ./.helm/Chart.old.yaml &&
-          cat ./.helm/Chart.old.yaml | grep -v version > ./.helm/Chart.yaml &&
-          echo -e "\r\nversion: ${GITHUB_REF##*/}\r\n" >> ./.helm/Chart.yaml &&
-          cat ./.helm/Chart.yaml         
+          cat ./.helm/Chart.old.yaml | grep -v appVersion > ./.helm/Chart.yaml &&
+          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./.helm/Chart.yaml &&
+          cat ./.helm/Chart.yaml
 
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
