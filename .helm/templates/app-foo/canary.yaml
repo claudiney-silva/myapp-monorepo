@@ -1,0 +1,39 @@
+{{- if and (.Values.appFoo.enabled) (.Values.appFoo.canary.enabled) }}
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: app-foo
+spec:
+  revertOnDeletion: false
+  skipAnalysis: false
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-foo
+  service:
+    port: {{ .Values.appFoo.service.port }}
+  analysis:
+    # schedule interval (default 60s)
+    interval: 10s
+    # max number of failed metric checks before rollback
+    threshold: 5
+    # canary increment step
+    # percentage (0-100)
+    stepWeight: 5
+    # max traffic percentage routed to canary
+    # percentage (0-100)
+    maxWeight: 50
+    metrics:
+      - name: request-success-rate
+        # minimum req success rate (non 5xx responses)
+        # percentage (0-100)
+        thresholdRange:
+          min: 99
+        interval: 1m
+      - name: request-duration
+        # maximum req duration P99
+        # milliseconds
+        thresholdRange:
+          max: 500
+        interval: 30s
+{{- end }}

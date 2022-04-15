@@ -1,0 +1,19 @@
+{{- if and (.Values.appFoo.enabled) (.Values.appFoo.metrics.enabled) (.Values.appFoo.metrics.serviceMonitor.enabled ) }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app-foo
+  labels:
+    {{- include "java-monorepo.labels" . | nindent 4 }}
+		{{- with .Values.appFoo.metrics.serviceMonitor.additionalLabels }}
+    	{{- toYaml . | nindent 4 }}
+  	{{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "java-monorepo.fullname" . }}-core
+  endpoints:
+  - interval: {{ .Values.appFoo.metrics.serviceMonitor.interval }}
+    port: http
+    scrapeTimeout: {{ .Values.appFoo.metrics.serviceMonitor.scrapeTimeout }}
+{{- end }}

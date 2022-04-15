@@ -1,0 +1,12 @@
+{{- if .Values.appFoo.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.appFoo.label }}-config
+  labels:
+    {{- include "java-monorepo.labels" . | nindent 4 }}
+data:
+{{- range $name, $value := .Values.appFoo.env.open }}
+  {{ $name }}: {{ $value | quote }}
+{{- end -}}
+{{- end }}

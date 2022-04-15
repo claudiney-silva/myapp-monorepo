@@ -1,0 +1,400 @@
+# Default values for java-monorepo
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Global Docker registry secret names as an array
+imagePullSecrets: {}
+  #name: gcr-auth
+# String to partially override java-monorepo.fullname template with a string (will prepend the release name)
+nameOverride: ""
+# -- String to fully override java-monorepo.fullname template with a string
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+redis:
+  # -- Enabled rabbitmq
+  enabled: true
+  # -- String to fully override common.names.fullname template with a string
+  fullnameOverride: redis
+  master:
+    # -- Add Pod Annotations
+    podAnnotations: {}
+      #linkerd.io/inject: enabled
+  replica:
+    # -- Number of Redis(TM) replicas to deploy
+    replicaCount: 1
+    # -- Add Pod Annotations
+    podAnnotations: {}
+     # linkerd.io/inject: enabled
+  # -- Redis(TM) architecture. Allowed values: standalone or replication
+  architecture: replication
+  # --  Disable password redis
+  usePassword: false
+  auth:
+    # -- Enable password authentication
+    enabled: false
+    # -- Enable password authentication on sentinels too
+    sentinel: false
+    # -- Redis(TM) password
+    #password: 123456789
+  metrics:
+    # -- Enable exposing RabbitMQ metrics to be gathered by Prometheus
+    enabled: false
+    serviceMonitor:
+      # -- Set this to true to create ServiceMonitor for Prometheus operator
+      enabled: false
+      # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
+      additionalLabels:
+        release: kube-prometheus-stack
+
+appBar:
+  # Enabled app-bar
+  enabled: true
+  label: app-bar
+  migrations:
+    # - Enabled migration hook
+    enabled: false
+  canary:
+    # -- Enable deploy canary using flagger
+    # Ref: https://docs.flagger.app/
+    enabled: false
+  # -- Replica count
+  replicaCount: 2
+  image:
+    # -- Image Repository
+    #repository: claudineysilva/java-monorepo.apps.bar
+    repository: ghcr.io/claudiney-silva/java-monorepo/java-monorepo.apps.bar
+    # -- Tag Image
+    tag: latest
+    # -- Pull Policy for use pull image
+    pullPolicy: Always
+  service:
+    # -- Enabled service
+    enabled: true
+    # -- Service type
+    type: ClusterIP
+    # -- Port number
+    port: 80
+    # -- Container Port
+    containerPort: 8080
+  ingress:
+    # -- Enabled ingress
+    enabled: true
+    # - Annotations for use ingress
+    annotations: {}
+    # -- Hosts list
+    hosts:
+    - name: monorepo-claudiney-silva.cloud.okteto.net
+      path: /app-bar
+      pathType: Prefix
+      serviceName: app-bar
+      servicePort: 80
+    # -- Enable tls
+    tls:
+      enabled: false
+      secretName: "example-tls"
+    # -- Liveness configuration
+  livenessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8080
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+  # -- Readiness configuration
+  readinessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8080
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    #limits:
+    #  cpu: 200m
+    #  memory: 300Mi
+    #requests:
+    #  cpu: 200m
+    #  memory: 300Mi
+  # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  nodeSelector: {}
+  # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+  # site.affinity -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+  # -- Add Pod Annotations
+  podAnnotations: {}
+    #linkerd.io/inject: enabled
+  scaledObject: {}
+    ## Example Cron
+    #pollingInterval:  30     # Optional. Default: 30 seconds
+    #cooldownPeriod:   300    # Optional. Default: 300 seconds
+    #idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
+    #minReplicaCount:  1      # Optional. Default: 0
+    #maxReplicaCount:  100    # Optional. Default: 100
+    #triggers:
+    #- type: cron
+    #  metadata:
+    #    timezone: America/Sao_Paulo
+    #    start: 00 06 * * 1-7 # At 07:00 on every day-of-week from Monday through Sunday.
+    #    end: 00 22 * * 1-7 # At 22:00 on every day-of-week from Monday through Sunday.
+    #    desiredReplicas: "6"
+  metrics:
+    # -- Enable exposing statistics
+    enabled: false
+    serviceMonitor:
+      # -- Set this to true to create ServiceMonitor for Prometheus operator
+      enabled: false
+      # -- Interval for scrap
+      interval: 1m
+      # -- Scrap Timeout for scrap
+      scrapeTimeout: 10s
+      # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
+      additionalLabels:
+        release: kube-prometheus-stack
+  # -- app-bar env configuration
+  env: 
+    open:
+      APP_BAZ: http://app-baz
+      APP_FOO: http://app-foo
+    secret:
+
+appBaz:
+  # Enabled app-baz
+  enabled: true
+  label: app-baz
+  migrations:
+    # - Enabled migration hook
+    enabled: false
+  canary:
+    # -- Enable deploy canary using flagger
+    # Ref: https://docs.flagger.app/
+    enabled: false
+  # -- Replica count
+  replicaCount: 1
+  image:
+    # -- Image Repository
+    #repository: claudineysilva/java-monorepo.apps.baz
+    repository: ghcr.io/claudiney-silva/java-monorepo/java-monorepo.apps.baz
+    # -- Tag Image
+    tag: latest
+    # -- Pull Policy for use pull image
+    pullPolicy: Always
+  service:
+    # -- Enabled service
+    enabled: true
+    # -- Service type
+    type: ClusterIP
+    # -- Port number
+    port: 80
+    # -- Container Port
+    containerPort: 8081
+  ingress:
+    # -- Enabled ingress
+    enabled: true
+    # - Annotations for use ingress
+    annotations: {}
+    # -- Hosts list
+    hosts:
+      - name: monorepo-claudiney-silva.cloud.okteto.net
+        path: /app-baz
+        pathType: Prefix
+        serviceName: app-baz
+        servicePort: 80
+    # -- Enable tls
+    tls:
+      enabled: false
+      secretName: "example-tls"
+    # -- Liveness configuration
+  livenessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8081
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+  # -- Readiness configuration
+  readinessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8081
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    #limits:
+    #  cpu: 200m
+    #  memory: 300Mi
+    #requests:
+    #  cpu: 200m
+  #  memory: 300Mi
+  # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  nodeSelector: {}
+  # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+  # site.affinity -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+  # -- Add Pod Annotations
+  podAnnotations: {}
+  #linkerd.io/inject: enabled
+  scaledObject: {}
+    ## Example Cron
+    #pollingInterval:  30     # Optional. Default: 30 seconds
+    #cooldownPeriod:   300    # Optional. Default: 300 seconds
+    #idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
+    #minReplicaCount:  1      # Optional. Default: 0
+    #maxReplicaCount:  100    # Optional. Default: 100
+    #triggers:
+    #- type: cron
+    #  metadata:
+    #    timezone: America/Sao_Paulo
+    #    start: 00 06 * * 1-7 # At 07:00 on every day-of-week from Monday through Sunday.
+    #    end: 00 22 * * 1-7 # At 22:00 on every day-of-week from Monday through Sunday.
+  #    desiredReplicas: "6"
+  metrics:
+    # -- Enable exposing statistics
+    enabled: false
+    serviceMonitor:
+      # -- Set this to true to create ServiceMonitor for Prometheus operator
+      enabled: false
+      # -- Interval for scrap
+      interval: 1m
+      # -- Scrap Timeout for scrap
+      scrapeTimeout: 10s
+      # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
+      additionalLabels:
+        release: kube-prometheus-stack
+  # -- app-baz env configuration
+  env:
+    open:
+    secret:
+
+appFoo:
+  # Enabled app-baz
+  enabled: true
+  label: app-foo
+  migrations:
+    # - Enabled migration hook
+    enabled: false
+  canary:
+    # -- Enable deploy canary using flagger
+    # Ref: https://docs.flagger.app/
+    enabled: false
+  # -- Replica count
+  replicaCount: 1
+  image:
+    # -- Image Repository
+    #repository: claudineysilva/java-monorepo.apps.foo
+    repository: ghcr.io/claudiney-silva/java-monorepo/java-monorepo.apps.foo
+    # -- Tag Image
+    tag: latest
+    # -- Pull Policy for use pull image
+    pullPolicy: Always
+  service:
+    # -- Enabled service
+    enabled: true
+    # -- Service type
+    type: ClusterIP
+    # -- Port number
+    port: 80
+    # -- Container Port
+    containerPort: 8082
+  ingress:
+    # -- Enabled ingress
+    enabled: false
+    # - Annotations for use ingress
+    annotations: {}
+    # -- Hosts list
+    hosts:
+      - name: monorepo-claudiney-silva.cloud.okteto.net
+        path: /app-foo
+        pathType: Prefix
+        serviceName: app-foo
+        servicePort: 80
+    # -- Enable tls
+    tls:
+      enabled: false
+      secretName: "example-tls"
+    # -- Liveness configuration
+  livenessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8082
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+  # -- Readiness configuration
+  readinessProbe:
+    httpGet:
+      path: /actuator/health
+      port: 8082
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    periodSeconds: 20
+  resources: {}
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    #limits:
+    #  cpu: 200m
+    #  memory: 300Mi
+    #requests:
+  #  cpu: 200m
+  #  memory: 300Mi
+  # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  nodeSelector: {}
+  # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+  # site.affinity -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  affinity: {}
+  # -- Add Pod Annotations
+  podAnnotations: {}
+  #linkerd.io/inject: enabled
+  scaledObject: {}
+    ## Example Cron
+    #pollingInterval:  30     # Optional. Default: 30 seconds
+    #cooldownPeriod:   300    # Optional. Default: 300 seconds
+    #idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
+    #minReplicaCount:  1      # Optional. Default: 0
+    #maxReplicaCount:  100    # Optional. Default: 100
+    #triggers:
+    #- type: cron
+    #  metadata:
+    #    timezone: America/Sao_Paulo
+    #    start: 00 06 * * 1-7 # At 07:00 on every day-of-week from Monday through Sunday.
+  #    end: 00 22 * * 1-7 # At 22:00 on every day-of-week from Monday through Sunday.
+  #    desiredReplicas: "6"
+  metrics:
+    # -- Enable exposing statistics
+    enabled: false
+    serviceMonitor:
+      # -- Set this to true to create ServiceMonitor for Prometheus operator
+      enabled: false
+      # -- Interval for scrap
+      interval: 1m
+      # -- Scrap Timeout for scrap
+      scrapeTimeout: 10s
+      # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
+      additionalLabels:
+        release: kube-prometheus-stack
+  # -- app-baz env configuration
+  env:
+    open:
+    secret:

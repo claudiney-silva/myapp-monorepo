@@ -1,0 +1,10 @@
+{{- if and (.Values.appBaz.enabled) (.Values.appBaz.scaledObject) }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ .Values.appBaz.label }}-scaledobject
+spec:
+  scaleTargetRef:
+    name: app-baz
+	{{- toYaml .Values.appBaz.scaledObject | nindent 2 }}
+{{- end }}

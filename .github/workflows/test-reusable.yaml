@@ -1,0 +1,35 @@
+name: Reusable Compile and Test
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache Depdendencies
+        uses: actions/cache@v2.1.5
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Setup JDK
+        uses: actions/setup-java@v2.1.0
+        with:
+          distribution: 'zulu'
+          java-version: 11
+
+      - name: Compile
+        run: mvn clean compile --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
+
+      - name: Test
+        run: mvn test --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
