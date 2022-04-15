@@ -13,6 +13,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-sdk</artifactId>
+			<version>1.13.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.github.claudineysilva.monorepo</groupId>
 			<artifactId>contracts</artifactId>
 			<version>${project.version}</version>
