@@ -64,9 +64,9 @@ jobs:
           username: ${{ secrets.docker-username }}
           password: ${{ secrets.docker-token }}
 
-      - name: AppDynamics
+      - name: AppDynamics Prepare
         run: |
-          cp ./AppServerAgent.zip ./apps/${{ inputs.app-name }}
+          unzip ./AppServerAgent.zip -d ./apps/${{ inputs.app-name }}/AppServerAgent
 
       - name: Build Image
         run: |
