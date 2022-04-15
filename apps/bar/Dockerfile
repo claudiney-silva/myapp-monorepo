@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:latest
+FROM adoptopenjdk/openjdk11:armv7l-ubuntu-jre11u-2022-02-11-03-47-beta-nightly
 EXPOSE 8081
 
 # AppDynamics Machine Agent
