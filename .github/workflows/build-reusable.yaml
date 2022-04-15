@@ -64,6 +64,10 @@ jobs:
           username: ${{ secrets.docker-username }}
           password: ${{ secrets.docker-token }}
 
+      - name: AppDynamics
+        run: |
+          
+
       - name: Build Image
         run: |
           docker build -t ghcr.io/${{ secrets.docker-username }}/${{ github.event.repository.name }}/${{ github.event.repository.name }}.apps.${{ inputs.app-name }}:latest -f ./apps/${{ inputs.app-name }}/Dockerfile ./apps/${{ inputs.app-name }}
