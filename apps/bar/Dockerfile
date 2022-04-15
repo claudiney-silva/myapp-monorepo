@@ -2,7 +2,6 @@ FROM adoptopenjdk/openjdk11:alpine
 EXPOSE 8081
 
 # AppDynamics Machine Agent
-COPY ../../AppServerAgent.zip ./
 RUN unzip AppServerAgent.zip -d AppServerAgent
 COPY AppServerAgent/ /opt/appdynamics/
 ENV JAVA_OPTS -javaagent:/opt/appdynamics/javaagent.jar
