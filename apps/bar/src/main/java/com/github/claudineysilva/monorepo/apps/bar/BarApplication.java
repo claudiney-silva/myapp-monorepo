@@ -54,7 +54,6 @@ public class BarApplication {
 	TrackDto track() {
 		log.info("Track by proxy");
 		RestTemplate restTemplate = new RestTemplate(); // Yes, should be a bean.
-		BarDto barDto = bar();
 		TrackDto trackDto = restTemplate.getForObject(appBaz + "/app-baz/track", TrackDto.class);
 		trackDto.setBarAttribute(bar().getBarAttribute());
 		return trackDto;
