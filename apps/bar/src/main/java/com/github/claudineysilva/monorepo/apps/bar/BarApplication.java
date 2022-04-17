@@ -38,14 +38,14 @@ public class BarApplication {
 	@GetMapping("app-bar/baz")
 	BazDto baz() {
 		log.info("Baz by proxy");
-		var restTemplate = new RestTemplate(); // Yes, should be a bean.
+		RestTemplate restTemplate = new RestTemplate(); // Yes, should be a bean.
 		return restTemplate.getForObject(appBaz + "/app-baz", BazDto.class);
 	}
 
 	@GetMapping("app-bar/foo")
 	FooDto foo() {
 		log.info("Foo by proxy");
-		var restTemplate = new RestTemplate(); // Yes, should be a bean.
+		RestTemplate restTemplate = new RestTemplate(); // Yes, should be a bean.
 		return restTemplate.getForObject(appFoo + "/app-foo", FooDto.class);
 	}
 }
