@@ -297,7 +297,6 @@ appBaz:
   # -- app-baz env configuration
   env:
     open:
-      APP_BAR: http://app-bar
       APP_FOO: http://app-foo
       APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
       APPDYNAMICS_AGENT_NODE_NAME: "okteto"
@@ -423,8 +422,6 @@ appFoo:
   # -- app-foo env configuration
   env:
     open:
-      APP_BAR: http://app-bar
-      APP_BAZ: http://app-baz
       APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
       APPDYNAMICS_AGENT_NODE_NAME: "okteto"
       APPDYNAMICS_AGENT_APPLICATION_NAME: "app-foo"
