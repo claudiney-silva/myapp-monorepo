@@ -1,6 +1,7 @@
 package com.github.claudineysilva.monorepo.apps.bar;
 
 import com.github.claudineysilva.monorepo.libs.contracts.bar.BarDto;
+import com.github.claudineysilva.monorepo.libs.contracts.bar.TrackDto;
 import com.github.claudineysilva.monorepo.libs.contracts.baz.BazDto;
 import com.github.claudineysilva.monorepo.libs.contracts.foo.FooDto;
 import lombok.extern.slf4j.Slf4j;
@@ -47,5 +48,15 @@ public class BarApplication {
 		log.info("Foo by proxy");
 		RestTemplate restTemplate = new RestTemplate(); // Yes, should be a bean.
 		return restTemplate.getForObject(appFoo + "/app-foo", FooDto.class);
+	}
+
+	@GetMapping("app-bar/track")
+	TrackDto track() {
+		log.info("Track by proxy");
+		RestTemplate restTemplate = new RestTemplate(); // Yes, should be a bean.
+		BarDto barDto = bar();
+		TrackDto trackDto = restTemplate.getForObject(appBaz + "/app-baz/track", TrackDto.class);
+		trackDto.setBarAttribute(bar().getBarAttribute());
+		return trackDto;
 	}
 }

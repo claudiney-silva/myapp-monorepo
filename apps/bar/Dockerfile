@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk8:alpine
-EXPOSE 8081
+EXPOSE 8080
 
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring

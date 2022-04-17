@@ -173,14 +173,15 @@ appBar:
     open:
       APP_BAZ: http://app-baz
       APP_FOO: http://app-foo
-      APPDYNAMICS_AGENT_NODE_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
       APPDYNAMICS_AGENT_APPLICATION_NAME: "app-bar"
       APPDYNAMICS_AGENT_ACCOUNT_NAME: "bruce202204141037339"
       APPDYNAMICS_CONTROLLER_HOST_NAME: "bruce202204141037339.saas.appdynamics.com"
       APPDYNAMICS_CONTROLLER_PORT: "443"
       APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
       APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "BAR_"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-bar"
     secret:
       APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "5rher9wbomer"
 
@@ -296,7 +297,19 @@ appBaz:
   # -- app-baz env configuration
   env:
     open:
+      APP_BAR: http://app-bar
+      APP_FOO: http://app-foo
+      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-baz"
+      APPDYNAMICS_AGENT_ACCOUNT_NAME: "bruce202204141037339"
+      APPDYNAMICS_CONTROLLER_HOST_NAME: "bruce202204141037339.saas.appdynamics.com"
+      APPDYNAMICS_CONTROLLER_PORT: "443"
+      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-baz"
     secret:
+      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "5rher9wbomer"
 
 appFoo:
   # Enabled app-baz
@@ -407,7 +420,19 @@ appFoo:
       # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
       additionalLabels:
         release: kube-prometheus-stack
-  # -- app-baz env configuration
+  # -- app-foo env configuration
   env:
     open:
+      APP_BAR: http://app-bar
+      APP_BAZ: http://app-baz
+      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-foo"
+      APPDYNAMICS_AGENT_ACCOUNT_NAME: "bruce202204141037339"
+      APPDYNAMICS_CONTROLLER_HOST_NAME: "bruce202204141037339.saas.appdynamics.com"
+      APPDYNAMICS_CONTROLLER_PORT: "443"
+      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-foo"
     secret:
+      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "5rher9wbomer"
