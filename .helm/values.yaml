@@ -106,21 +106,21 @@ appBar:
       enabled: false
       secretName: "example-tls"
     # -- Liveness configuration
-  livenessProbe:
-    httpGet:
-      path: /app-bar/actuator/health
-      port: 8080
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 20
+  livenessProbe: {}
+    #httpGet:
+    #  path: /app-bar/actuator/health
+    #  port: 8080
+    #initialDelaySeconds: 120
+    #timeoutSeconds: 5
+    #periodSeconds: 20
   # -- Readiness configuration
-  readinessProbe:
-    httpGet:
-      path: /app-bar/actuator/health
-      port: 8080
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 20
+  readinessProbe: {}
+    #httpGet:
+    #  path: /app-bar/actuator/health
+    #  port: 8080
+    #initialDelaySeconds: 120
+    #timeoutSeconds: 5
+    #periodSeconds: 20
   resources: {}
     ## We usually recommend not to specify default resources and to leave this as a conscious
     ## choice for the user. This also increases chances charts run on environments with little
@@ -232,21 +232,21 @@ appBaz:
       enabled: false
       secretName: "example-tls"
     # -- Liveness configuration
-  livenessProbe:
-    httpGet:
-      path: /app-baz/actuator/health
-      port: 8081
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 20
+  livenessProbe: {}
+    #httpGet:
+    #  path: /app-baz/actuator/health
+    #  port: 8081
+    #initialDelaySeconds: 120
+    #timeoutSeconds: 5
+    #periodSeconds: 20
   # -- Readiness configuration
-  readinessProbe:
-    httpGet:
-      path: /app-baz/actuator/health
-      port: 8081
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 20
+  readinessProbe: {}
+    #httpGet:
+    #  path: /app-baz/actuator/health
+    #  port: 8081
+    #initialDelaySeconds: 120
+    #timeoutSeconds: 5
+    #periodSeconds: 20
   resources: {}
     ## We usually recommend not to specify default resources and to leave this as a conscious
     ## choice for the user. This also increases chances charts run on environments with little
@@ -357,21 +357,21 @@ appFoo:
       enabled: false
       secretName: "example-tls"
     # -- Liveness configuration
-  livenessProbe:
-    httpGet:
-      path: /app-foo/actuator/health
-      port: 8082
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 20
+  livenessProbe: {}
+    #httpGet:
+    #  path: /app-foo/actuator/health
+    #  port: 8082
+    #initialDelaySeconds: 120
+    #timeoutSeconds: 5
+    #periodSeconds: 20
   # -- Readiness configuration
-  readinessProbe:
-    httpGet:
-      path: /app-foo/actuator/health
-      port: 8082
-    initialDelaySeconds: 120
-    timeoutSeconds: 5
-    periodSeconds: 20
+  readinessProbe: {}
+    #httpGet:
+    #  path: /app-foo/actuator/health
+    #  port: 8082
+    #initialDelaySeconds: 120
+    #timeoutSeconds: 5
+    #periodSeconds: 20
   resources: {}
     ## We usually recommend not to specify default resources and to leave this as a conscious
     ## choice for the user. This also increases chances charts run on environments with little
