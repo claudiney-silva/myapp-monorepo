@@ -36,12 +36,11 @@ public class BazApplication {
 	TrackDto track() {
 		log.info("Track by proxy");
 		RestTemplate restTemplate = new RestTemplate(); // Yes, should be a bean.
-		BazDto bazDto = baz();
 		FooDto fooDto = restTemplate.getForObject(appFoo + "/app-foo", FooDto.class);
 		return TrackDto.builder()
-				.id(bazDto.getId())
-				.bazAttribute(bazDto.getBazAttribute())
+				.id(fooDto.getId())
 				.fooAttribute(fooDto.getFooAttribute())
+				.bazAttribute("baz-track")
 				.build();
 	}
 
