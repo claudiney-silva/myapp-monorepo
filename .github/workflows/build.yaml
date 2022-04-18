@@ -57,8 +57,8 @@ jobs:
           sed -i.bak 's/APPDY_CONTROLLER_HOST_NAME/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./.helm/values.yaml
           sed -i.bak 's/APPDY_AGENT_ACCOUNT_ACCESS_KEY/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./.helm/values.yaml
 
-- uses: WyriHaximus/github-action-helm3@v2
-        name: Deploy
-        with:
-          exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
-          kubeconfig: '${{ secrets.KUBECONFIG }}'
+      - uses: WyriHaximus/github-action-helm3@v2
+              name: Deploy
+              with:
+                exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
+                kubeconfig: '${{ secrets.KUBECONFIG }}'
