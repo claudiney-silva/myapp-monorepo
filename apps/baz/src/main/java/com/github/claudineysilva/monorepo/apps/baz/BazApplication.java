@@ -40,7 +40,7 @@ public class BazApplication {
 		FooDto fooDto = restTemplate.getForObject(appFoo + "/app-foo", FooDto.class);
 		return TrackDto.builder()
 				.id(bazDto.getId())
-				.barAttribute(bazDto.getBazAttribute())
+				.bazAttribute(bazDto.getBazAttribute())
 				.fooAttribute(fooDto.getFooAttribute())
 				.build();
 	}
