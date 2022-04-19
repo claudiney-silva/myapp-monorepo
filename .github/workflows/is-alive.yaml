@@ -7,12 +7,17 @@ on:
 
 jobs:
 
-  server-test:
-    runs-on: ubuntu-latest
+  app-bar:
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-bar
 
-    steps:
-      - name: Server Test
-        run: |
-          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://${{ secrets.KUBENAMESPACE }}.cloud.okteto.net/app-bar/actuator/health) >> $GITHUB_ENV
-          echo "$STATUS_CODE"
-          if [[ $STATUS_CODE == "200" ]] ; then echo "Server is alive!" ; else echo "Server is off" ; exit 1; fi
+  app-baz:
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-baz
+
+  app-foo:
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-foo
