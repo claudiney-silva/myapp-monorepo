@@ -62,3 +62,24 @@ jobs:
         with:
           exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
+
+  is-alive-app-bar:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-bar
+
+  is-alive-app-baz:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-baz
+
+  is-alive-app-foo:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-foo
