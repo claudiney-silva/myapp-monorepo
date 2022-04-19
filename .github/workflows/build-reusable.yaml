@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-java@v2.1.0
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 8
 
       - name: Compile
         run: mvn clean compile --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
@@ -63,6 +63,10 @@ jobs:
           login-server: ghcr.io
           username: ${{ secrets.docker-username }}
           password: ${{ secrets.docker-token }}
+
+      - name: AppDynamics Prepare
+        run: |
+          cp ./AppServerAgent.zip ./apps/${{ inputs.app-name }}
 
       - name: Build Image
         run: |

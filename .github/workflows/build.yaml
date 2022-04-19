@@ -43,15 +43,43 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Prep helm chart
+      - name: Prep Helm Chart
         run: |
           mv ./.helm/Chart.yaml ./.helm/Chart.old.yaml &&
           cat ./.helm/Chart.old.yaml | grep -v appVersion > ./.helm/Chart.yaml &&
           echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./.helm/Chart.yaml &&
           cat ./.helm/Chart.yaml
 
+      - name: Prep AppDynamics configs
+        run: |
+          cp ./.helm/values.yaml ./.helm/values.bkp.yaml
+          sed -i.bak 's/APPDY_AGENT_ACCOUNT_NAME/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./.helm/values.yaml
+          sed -i.bak 's/APPDY_CONTROLLER_HOST_NAME/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./.helm/values.yaml
+          sed -i.bak 's/APPDY_AGENT_ACCOUNT_ACCESS_KEY/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./.helm/values.yaml
+
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
           exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
+
+  is-alive-app-bar:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-bar
+
+  is-alive-app-baz:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-baz
+
+  is-alive-app-foo:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-foo
