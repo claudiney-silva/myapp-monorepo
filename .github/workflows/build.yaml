@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  app-bar:
+  build-app-bar:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: bar
@@ -16,7 +16,7 @@ jobs:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  app-baz:
+  build-app-baz:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: baz
@@ -24,7 +24,7 @@ jobs:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  app-foo:
+  build-app-foo:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: foo
@@ -34,9 +34,9 @@ jobs:
 
   deploy-helm-chart:
     needs:
-      - 'app-bar'
-      - 'app-baz'
-      - 'app-foo'
+      - 'build-app-bar'
+      - 'build-app-baz'
+      - 'build-app-foo'
     #if: startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     steps:
