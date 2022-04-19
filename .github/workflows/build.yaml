@@ -68,7 +68,7 @@ jobs:
       - 'deploy-helm-chart'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
-      app-name: app-bar
+      app-name: bar
     secrets:
       namespace: ${{ secrets.KUBENAMESPACE }}
 
@@ -77,7 +77,7 @@ jobs:
       - 'deploy-helm-chart'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
-      app-name: app-baz
+      app-name: baz
     secrets:
       namespace: ${{ secrets.KUBENAMESPACE }}
 
@@ -86,6 +86,6 @@ jobs:
       - 'deploy-helm-chart'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
-      app-name: app-foo
+      app-name: foo
     secrets:
       namespace: ${{ secrets.KUBENAMESPACE }}
