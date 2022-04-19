@@ -11,13 +11,19 @@ jobs:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: app-bar
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
 
   app-baz:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: app-baz
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
 
   app-foo:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: app-foo
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}

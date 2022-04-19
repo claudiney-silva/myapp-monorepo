@@ -69,6 +69,8 @@ jobs:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: app-bar
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
 
   is-alive-app-baz:
     needs:
@@ -76,6 +78,8 @@ jobs:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: app-baz
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
 
   is-alive-app-foo:
     needs:
@@ -83,3 +87,5 @@ jobs:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: app-foo
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
