@@ -1,0 +1,18 @@
+name: Reusable Is Alive
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        required: true
+        type: string
+
+jobs:
+  server-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Server Test | ${{ inputs.app-name }}
+        run: |
+          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://${{ secrets.KUBENAMESPACE }}.cloud.okteto.net/${{ inputs.app-name }}/actuator/health) >> $GITHUB_ENV
+          echo "$STATUS_CODE"
+          if [[ $STATUS_CODE == "200" ]] ; then echo "Server is alive!" ; else echo "Server is off" ; exit 1; fi

@@ -1,0 +1,23 @@
+name: Is Alive
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+
+  app-bar:
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-bar
+
+  app-baz:
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-baz
+
+  app-foo:
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: app-foo
