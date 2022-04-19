@@ -11,7 +11,7 @@ jobs:
   server-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Server Test | ${{ inputs.app-name }}
+      - name: Server Test
         run: |
           STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://${{ secrets.KUBENAMESPACE }}.cloud.okteto.net/${{ inputs.app-name }}/actuator/health) >> $GITHUB_ENV
           echo "$STATUS_CODE"
