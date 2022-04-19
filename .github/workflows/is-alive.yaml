@@ -7,23 +7,23 @@ on:
 
 jobs:
 
-  app-bar:
+  is-alive-app-bar:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
-      app-name: app-bar
+      app-name: bar
     secrets:
       namespace: ${{ secrets.KUBENAMESPACE }}
 
-  app-baz:
+  is-alive-app-baz:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
-      app-name: app-baz
+      app-name: baz
     secrets:
       namespace: ${{ secrets.KUBENAMESPACE }}
 
-  app-foo:
+  is-alive-app-foo:
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
-      app-name: app-foo
+      app-name: foo
     secrets:
       namespace: ${{ secrets.KUBENAMESPACE }}

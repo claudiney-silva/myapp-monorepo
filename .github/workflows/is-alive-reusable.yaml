@@ -1,4 +1,4 @@
-name: Reusable Is Alive
+name: Reusable | Is Alive
 
 on:
   workflow_call:
@@ -17,6 +17,6 @@ jobs:
     steps:
       - name: Server Test
         run: |
-          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://${{ secrets.namespace }}.cloud.okteto.net/${{ inputs.app-name }}/actuator/health) >> $GITHUB_ENV
+          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://${{ secrets.namespace }}.cloud.okteto.net/app-${{ inputs.app-name }}/actuator/health) >> $GITHUB_ENV
           echo "$STATUS_CODE"
           if [[ $STATUS_CODE == "200" ]] ; then echo "Server is alive!" ; else echo "Server is off" ; exit 1; fi
