@@ -1,4 +1,4 @@
-name: Test
+name: Reusable Is Alive
 
 on:
   workflow_call:
@@ -6,74 +6,14 @@ on:
       app-name:
         required: true
         type: string
-    secrets:
-      docker-username:
-        required: true
-      docker-token:
-        required: true
 
 jobs:
-  build-test-image:
+  server-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Prepare
+      - name: Server Test
         run: |
-          echo "TAG_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Cache Depdendencies
-        uses: actions/cache@v2.1.5
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven-
-
-      - name: Setup JDK
-        uses: actions/setup-java@v2.1.0
-        with:
-          distribution: 'zulu'
-          java-version: 8
-
-      - name: Compile
-        run: mvn clean compile --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
-
-      - name: Test and Package
-        run: mvn package --projects :${{ inputs.app-name }} --also-make --threads=2 --batch-mode
-
-      #- name: Docker - Login to Container Registry
-      #  uses: docker/login-action@v1
-      #  with:
-      #    username: ${{ secrets.docker-username }}
-      #    password: ${{ secrets.docker-token }}
-
-      #- name: Docker - Build image and push to Container Registry
-      #  uses: docker/build-push-action@v2
-      #  with:
-      #    context: ./apps/${{ inputs.app-name }}
-      #    push: true
-      #    tags: |
-      #      ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:latest
-      #      ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:${{ env.TAG_VERSION }}
-
-      - uses: azure/docker-login@v1
-        with:
-          login-server: ghcr.io
-          username: ${{ secrets.docker-username }}
-          password: ${{ secrets.docker-token }}
-
-      - name: AppDynamics Prepare
-        run: |
-          cp ./AppServerAgent.zip ./apps/${{ inputs.app-name }}
-
-      - name: Build Image
-        run: |
-          docker build -t ghcr.io/${{ secrets.docker-username }}/${{ github.event.repository.name }}/${{ github.event.repository.name }}.apps.${{ inputs.app-name }}:latest -f ./apps/${{ inputs.app-name }}/Dockerfile ./apps/${{ inputs.app-name }}
-          docker tag ghcr.io/${{ secrets.docker-username }}/${{ github.event.repository.name }}/${{ github.event.repository.name }}.apps.${{ inputs.app-name }}:latest ghcr.io/${{ secrets.docker-username }}/${{ github.event.repository.name }}/${{ github.event.repository.name }}.apps.${{ inputs.app-name }}:${{ env.TAG_VERSION }}
-
-      - name: Push to Container Registry
-        run: |
-          docker push ghcr.io/${{ secrets.docker-username }}/${{ github.event.repository.name }}/${{ github.event.repository.name }}.apps.${{ inputs.app-name }}:latest
-          docker push ghcr.io/${{ secrets.docker-username }}/${{ github.event.repository.name }}/${{ github.event.repository.name }}.apps.${{ inputs.app-name }}:${{ env.TAG_VERSION }}
+          STATUS_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" https://${{ secrets.KUBENAMESPACE }}.cloud.okteto.net/${{ inputs.app-name }}/actuator/health) >> $GITHUB_ENV
+          echo "$STATUS_CODE"
+          if [[ $STATUS_CODE == "200" ]] ; then echo "Server is alive!" ; else echo "Server is off" ; exit 1; fi
