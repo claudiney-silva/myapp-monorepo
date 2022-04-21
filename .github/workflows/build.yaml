@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  app-bar:
+  build-app-bar:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: bar
@@ -16,7 +16,7 @@ jobs:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  app-baz:
+  build-app-baz:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: baz
@@ -24,7 +24,7 @@ jobs:
       docker-username: ${{ secrets.DOCKER_USERNAME }}
       docker-token: ${{ secrets.DOCKER_TOKEN }}
 
-  app-foo:
+  build-app-foo:
     uses: ./.github/workflows/build-reusable.yaml
     with:
       app-name: foo
@@ -34,24 +34,58 @@ jobs:
 
   deploy-helm-chart:
     needs:
-      - 'app-bar'
-      - 'app-baz'
-      - 'app-foo'
+      - 'build-app-bar'
+      - 'build-app-baz'
+      - 'build-app-foo'
     #if: startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
 
-      - name: Prep helm chart
+      - name: Prep Helm Chart
         run: |
           mv ./.helm/Chart.yaml ./.helm/Chart.old.yaml &&
           cat ./.helm/Chart.old.yaml | grep -v appVersion > ./.helm/Chart.yaml &&
           echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./.helm/Chart.yaml &&
           cat ./.helm/Chart.yaml
 
+      - name: Prep AppDynamics configs
+        run: |
+          cp ./.helm/values.yaml ./.helm/values.bkp.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./.helm/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./.helm/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./.helm/values.yaml
+
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
           exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
+
+  is-alive-app-bar:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: bar
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
+
+  is-alive-app-baz:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: baz
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
+
+  is-alive-app-foo:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: foo
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}

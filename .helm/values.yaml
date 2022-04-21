@@ -110,7 +110,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 30
+    initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -118,7 +118,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 30
+    initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
   resources: {}
@@ -173,7 +173,17 @@ appBar:
     open:
       APP_BAZ: http://app-baz
       APP_FOO: http://app-foo
+      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-bar"
+      APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
+      APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
+      APPDYNAMICS_CONTROLLER_PORT: "443"
+      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-bar"
     secret:
+      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%"
 
 appBaz:
   # Enabled app-baz
@@ -226,7 +236,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 30
+    initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -234,7 +244,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 30
+    initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
   resources: {}
@@ -287,7 +297,18 @@ appBaz:
   # -- app-baz env configuration
   env:
     open:
+      APP_FOO: http://app-foo
+      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-baz"
+      APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
+      APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
+      APPDYNAMICS_CONTROLLER_PORT: "443"
+      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-baz"
     secret:
+      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%8"
 
 appFoo:
   # Enabled app-baz
@@ -340,7 +361,7 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 30
+    initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -348,7 +369,7 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 30
+    initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
   resources: {}
@@ -398,7 +419,17 @@ appFoo:
       # -- Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
       additionalLabels:
         release: kube-prometheus-stack
-  # -- app-baz env configuration
+  # -- app-foo env configuration
   env:
     open:
+      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-foo"
+      APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
+      APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
+      APPDYNAMICS_CONTROLLER_PORT: "443"
+      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-foo"
     secret:
+      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%"
