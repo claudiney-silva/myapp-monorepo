@@ -1,0 +1,18 @@
+name: Istio install/configure
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  install-helm-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: WyriHaximus/github-action-helm3@v2
+        name: Deploy
+        with:
+          exec: helm upgrade my-istio ./.helm/my-istio/ --install --wait --atomic --namespace=istio-claudiney-silva --set=app.name=my-istio --values=./.helm/my-istio/values.yaml
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
+

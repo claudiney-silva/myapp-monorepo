@@ -1,0 +1,3 @@
+myIstio:
+  # Enabled istio
+  enabled: true
