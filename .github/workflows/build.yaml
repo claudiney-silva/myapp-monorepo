@@ -45,22 +45,22 @@ jobs:
 
       - name: Prep Helm Chart
         run: |
-          mv ./.helm/Chart.yaml ./.helm/Chart.old.yaml &&
-          cat ./.helm/Chart.old.yaml | grep -v appVersion > ./.helm/Chart.yaml &&
-          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./.helm/Chart.yaml &&
-          cat ./.helm/Chart.yaml
+          mv ./.helm/java-monorepo/Chart.yaml ./.helm/java-monorepo/Chart.old.yaml &&
+          cat ./.helm/java-monorepo/Chart.old.yaml | grep -v appVersion > ./.helm/java-monorepo/Chart.yaml &&
+          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./.helm/java-monorepo/Chart.yaml &&
+          cat ./.helm/java-monorepo/Chart.yaml
 
       - name: Prep AppDynamics configs
         run: |
-          cp ./.helm/values.yaml ./.helm/values.bkp.yaml
-          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./.helm/values.yaml
-          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./.helm/values.yaml
-          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./.helm/values.yaml
+          cp ./.helm/java-monorepo/values.yaml ./.helm/java-monorepo/values.bkp.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./.helm/java-monorepo/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./.helm/java-monorepo/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./.helm/java-monorepo/values.yaml
 
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
-          exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
+          exec: helm upgrade java-monorepo ./.helm/java-monorepo/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/java-monorepo/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
 
   is-alive-app-bar:

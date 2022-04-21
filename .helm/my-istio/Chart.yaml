@@ -1,0 +1,23 @@
+apiVersion: v2
+name: my-istio
+description: Chart for the istio
+version: 1.13.3
+appVersion: 1.13.3
+icon: https://istio.io/latest/favicons/android-192x192.png
+dependencies:
+  - name: "base"
+    version: "1.13.3"
+    repository: "https://istio-release.storage.googleapis.com/charts"
+    condition: myIstio.enabled
+  - name: "istiod"
+    version: "1.13.3"
+    repository: "https://istio-release.storage.googleapis.com/charts"
+    condition: myIstio.enabled
+  - name: "istio-ingress"
+    version: "1.13.3"
+    repository: "https://istio-release.storage.googleapis.com/charts"
+    condition: myIstio.enabled
+  - name: "istio-egress"
+    version: "1.13.3"
+    repository: "https://istio-release.storage.googleapis.com/charts"
+    condition: myIstio.enabled
