@@ -60,7 +60,7 @@ jobs:
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
-          exec: helm upgrade java-monorepo ./.helm/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/values.yaml
+          exec: helm upgrade java-monorepo ./.helm/app/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/app/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
 
   is-alive-app-bar:
