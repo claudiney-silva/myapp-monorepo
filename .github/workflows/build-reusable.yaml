@@ -1,4 +1,4 @@
-name: Reusable Build, Image and Deploy
+name: Reusable | Build, Image and Deploy
 
 on:
   workflow_call:
