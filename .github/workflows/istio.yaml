@@ -1,0 +1,45 @@
+name: Istio install/configure
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  install-helm-chart:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - uses: WyriHaximus/github-action-helm3@v2
+        name: Deploy
+        with:
+          exec: helm upgrade java-monorepo-istio ./.helm/istio/ --install --wait --atomic --namespace=istio-claudiney-silva --set=app.name=java-monorepo-istio --values=./.helm/istio/values.yaml
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
+
+  is-alive-app-bar:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: bar
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
+
+  is-alive-app-baz:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: baz
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
+
+  is-alive-app-foo:
+    needs:
+      - 'deploy-helm-chart'
+    uses: ./.github/workflows/is-alive-reusable.yaml
+    with:
+      app-name: foo
+    secrets:
+      namespace: ${{ secrets.KUBENAMESPACE }}
