@@ -12,6 +12,7 @@ Exemplo de **Monorepo** com **Maven/Springboot** e deploy em **K8S** com **Helm 
 
 ![Gitflow utilizado](docs/gitflow.png)
 </details>
+
 ---
 
 # Istio (Service Mesh)
@@ -36,7 +37,9 @@ kind create cluster --name my-cluster
 </details>
 
 ## Kubectl
+
 <details><summary>Kubectl install</summary>
+
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -45,7 +48,9 @@ kubectl version --client
 </details>
 
 ## Helm
+
 <details><summary>Helm install</summary>
+
 ```
 wget https://get.helm.sh/helm-v3.8.2-linux-amd64.tar.gz
 tar xvf helm-v3.8.2-linux-amd64.tar.gz
