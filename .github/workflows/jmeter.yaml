@@ -15,11 +15,11 @@ jobs:
       - name: Run JMeter Action on a test
         uses: rbhadti94/apache-jmeter-action@v0.5.0
         with:
-          testFilePath: apps/bar/src/main/resources/
-          outputReportsFolder: reports/
+          testFilePath: ./apps/bar/src/main/resources/
+          outputReportsFolder: ./reports/
           args: "--loglevel INFO"
 
       - uses: actions/upload-artifact@v3
         with:
           name: jmeter-test-results
-          path: reports/
+          path: ./reports/
