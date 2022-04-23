@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  action_build:
+  tests-run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,11 +15,12 @@ jobs:
       - name: Run JMeter Action on a test
         uses: rbhadti94/apache-jmeter-action@v0.5.0
         with:
-          testFilePath: apps/bar/src/main/resources/
-          outputReportsFolder: reports/
+          testFilePath: ./apps/bar/src/test/resources/test-plan-track.jmx
+          outputReportsFolder: ./reports/
           args: "--loglevel INFO"
+          retention-days: 7
 
       - uses: actions/upload-artifact@v3
         with:
           name: jmeter-test-results
-          path: reports/
+          path: ./reports/
