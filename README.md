@@ -1,10 +1,10 @@
 # Java Monorepo
 
-## Sobre
-
 <p align="left">
-  <img alt="Bar" src="https://github.com/claudiney-silva/java-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
+  <img alt="Java Monorepo" src="https://github.com/claudiney-silva/java-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
 </p>
+
+## Sobre
 
 Exemplo de **Monorepo** com **Maven/Springboot** e deploy em **K8S** com **Helm Chart** utilizando **Github Actions**.
 
@@ -88,3 +88,21 @@ kubectl port-forward svc/app-bar -n java-monorepo 8080:80
 ```
 
 Para acessar o app-bar [clique aqui](http://localhost:8080/app-bar/track).
+
+---
+
+# JMeter (Teste de carga)
+
+Na pipeline são executados os testes, mas você pode executá-los manualmente: 
+
+## Download and Plan Test
+
+Faça o [download](https://jmeter.apache.org/download_jmeter.cgi) do JMeter e crie um plano de testes pela ferramenta visual.
+
+## Comando para executar o Plano de Teste
+
+Na pasta `/bin` do JMeter execute o comando:
+
+```
+./jmeter.sh -n -t "/PATH-PROJETO/java-monorepo/apps/bar/src/main/resources/simple.jmx" -l "/PATH-PROJETO/java-monorepo/apps/bar/target/jmeter/results.csv" -e -o "/PATH-PROJETO/java-monorepo/apps/bar/target/jmeter/output"
+```
