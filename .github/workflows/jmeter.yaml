@@ -18,12 +18,7 @@ jobs:
           testFilePath: ./apps/bar/src/test/resources/test-plan-track.jmx
           outputReportsFolder: ./reports/
           args: "--loglevel INFO"
-
-      - name: Test
-        run: |
-          pwd
-          cd apps/bar/src/test/resources
-          ls          
+          retention-days: 7
 
       - uses: actions/upload-artifact@v3
         with:
