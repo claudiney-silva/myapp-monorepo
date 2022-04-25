@@ -1,4 +1,4 @@
-{{- if and (.Values.appBar.enabled) (.Values.appBar.scaledObject) }}
+{{- if .Values.appBar.enabled }}
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
