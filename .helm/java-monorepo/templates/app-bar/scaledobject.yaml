@@ -1,6 +1,6 @@
 {{- if and (.Values.appBar.enabled) (.Values.appBar.scaledObject) }}
 apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
+kind: ScaledObj
 metadata:
   name: {{ .Values.appBar.label }}-scaledobject
 spec:
