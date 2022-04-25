@@ -10,5 +10,5 @@ spec:
     apiVersion: extensions/v1beta1
     kind: Deployment
     name: app-bar
-  targetCPUUtilizationPercentage: 40
+  targetCPUUtilizationPercentage: 10
 {{- end }}
