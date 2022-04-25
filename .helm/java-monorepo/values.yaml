@@ -71,7 +71,7 @@ appBar:
     # Ref: https://docs.flagger.app/
     enabled: false
   # -- Replica count
-  replicaCount: 2
+  replicaCount: 1
   image:
     # -- Image Repository
     #repository: claudineysilva/java-monorepo.apps.bar
@@ -141,14 +141,19 @@ appBar:
   # -- Add Pod Annotations
   podAnnotations: {}
     #linkerd.io/inject: enabled
-  scaledObject: {}
+  scaledObject:
     ## Example Cron
-    #pollingInterval:  30     # Optional. Default: 30 seconds
-    #cooldownPeriod:   300    # Optional. Default: 300 seconds
-    #idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
-    #minReplicaCount:  1      # Optional. Default: 0
-    #maxReplicaCount:  100    # Optional. Default: 100
-    #triggers:
+    pollingInterval:  30     # Optional. Default: 30 seconds
+    cooldownPeriod:   300    # Optional. Default: 300 seconds
+    idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
+    minReplicaCount:  1      # Optional. Default: 0
+    maxReplicaCount:  3      # Optional. Default: 100
+    triggers:
+    - type: cpu
+      metadata:
+        # Required
+        type: Utilization/AverageValue
+        value: "60"
     #- type: cron
     #  metadata:
     #    timezone: America/Sao_Paulo
