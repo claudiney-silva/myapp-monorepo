@@ -6,5 +6,5 @@ metadata:
 spec:
   scaleTargetRef:
     name: app-bar
-	{{- toYaml .Values.appBar.scaledObject | nindent 2 }}
+      {{- toYaml .Values.appBar.scaledObject | nindent 2 }}
 {{- end }}
