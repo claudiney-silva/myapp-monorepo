@@ -100,7 +100,7 @@ O Helm do monorepo deve ser instalado após a instalação do **Istio** para que
 ```
 kubectl create namespace java-monorepo
 kubectl label namespace java-monorepo istio-injection=enabled
-helm install java-monorepo ./.helm/app -n java-monorepo
+helm install java-monorepo ./.helm/java-monorepo -n java-monorepo
 kubectl get pods -n java-monorepo
 kubectl port-forward svc/app-bar -n java-monorepo 8080:80
 ```

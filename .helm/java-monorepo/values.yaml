@@ -110,7 +110,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 120
+    initialDelaySeconds: 30
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -118,20 +118,20 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 120
+    initialDelaySeconds: 30
     timeoutSeconds: 5
     periodSeconds: 20
-  resources: {}
+  resources:
     ## We usually recommend not to specify default resources and to leave this as a conscious
     ## choice for the user. This also increases chances charts run on environments with little
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    #limits:
-    #  cpu: 200m
-    #  memory: 300Mi
-    #requests:
-    #  cpu: 200m
-    #  memory: 300Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
+    requests:
+      cpu: 250m
+      memory: 128Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
   # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -178,17 +178,17 @@ appBar:
     open:
       APP_BAZ: http://app-baz
       APP_FOO: http://app-foo
-      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
-      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
-      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-bar"
-      APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
-      APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
-      APPDYNAMICS_CONTROLLER_PORT: "443"
-      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-bar"
+      #APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      #APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      #APPDYNAMICS_AGENT_APPLICATION_NAME: "app-bar"
+      #APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
+      #APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
+      #APPDYNAMICS_CONTROLLER_PORT: "443"
+      #APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      #APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      #APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-bar"
     secret:
-      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%"
+      #APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%"
 
 appBaz:
   # Enabled app-baz
@@ -241,7 +241,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 120
+    initialDelaySeconds: 30
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -252,17 +252,17 @@ appBaz:
     initialDelaySeconds: 120
     timeoutSeconds: 5
     periodSeconds: 20
-  resources: {}
+  resources:
     ## We usually recommend not to specify default resources and to leave this as a conscious
     ## choice for the user. This also increases chances charts run on environments with little
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    #limits:
-    #  cpu: 200m
-    #  memory: 300Mi
-    #requests:
-    #  cpu: 200m
-  #  memory: 300Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
+    requests:
+      cpu: 250m
+      memory: 128Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
   # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -303,17 +303,17 @@ appBaz:
   env:
     open:
       APP_FOO: http://app-foo
-      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
-      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
-      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-baz"
-      APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
-      APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
-      APPDYNAMICS_CONTROLLER_PORT: "443"
-      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-baz"
+      #APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      #APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      #APPDYNAMICS_AGENT_APPLICATION_NAME: "app-baz"
+      #APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
+      #APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
+      #APPDYNAMICS_CONTROLLER_PORT: "443"
+      #APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      #APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      #APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-baz"
     secret:
-      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%8"
+      #APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%8"
 
 appFoo:
   # Enabled app-baz
@@ -366,7 +366,7 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 120
+    initialDelaySeconds: 30
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -382,12 +382,12 @@ appFoo:
     ## choice for the user. This also increases chances charts run on environments with little
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    #limits:
-    #  cpu: 200m
-    #  memory: 300Mi
-    #requests:
-  #  cpu: 200m
-  #  memory: 300Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
+    requests:
+      cpu: 250m
+      memory: 128Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
   # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -427,14 +427,14 @@ appFoo:
   # -- app-foo env configuration
   env:
     open:
-      APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
-      APPDYNAMICS_AGENT_NODE_NAME: "okteto"
-      APPDYNAMICS_AGENT_APPLICATION_NAME: "app-foo"
-      APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
-      APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
-      APPDYNAMICS_CONTROLLER_PORT: "443"
-      APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
-      APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-foo"
+      #APPDYNAMICS_AGENT_TIER_NAME: "java-monorepo"
+      #APPDYNAMICS_AGENT_NODE_NAME: "okteto"
+      #APPDYNAMICS_AGENT_APPLICATION_NAME: "app-foo"
+      #APPDYNAMICS_AGENT_ACCOUNT_NAME: "%APPDYNAMICS_AGENT_ACCOUNT_NAME%"
+      #APPDYNAMICS_CONTROLLER_HOST_NAME: "%APPDYNAMICS_CONTROLLER_HOST_NAME%"
+      #APPDYNAMICS_CONTROLLER_PORT: "443"
+      #APPDYNAMICS_CONTROLLER_SSL_ENABLED: "true"
+      #APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME: "true"
+      #APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME_PREFIX: "app-foo"
     secret:
-      APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%"
+      #APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY: "%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%"
