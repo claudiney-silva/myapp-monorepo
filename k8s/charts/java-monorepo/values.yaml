@@ -128,10 +128,10 @@ appBar:
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
       cpu: 250m
-      memory: 128Mi
+      memory: 256Mi
     requests:
       cpu: 250m
-      memory: 128Mi
+      memory: 256Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
   # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -245,10 +245,10 @@ appBaz:
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
       cpu: 250m
-      memory: 128Mi
+      memory: 256Mi
     requests:
       cpu: 250m
-      memory: 128Mi
+      memory: 256Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
   # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -361,10 +361,10 @@ appFoo:
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
       cpu: 250m
-      memory: 128Mi
+      memory: 256Mi
     requests:
       cpu: 250m
-      memory: 128Mi
+      memory: 256Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
   # site.tolerations -- Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
