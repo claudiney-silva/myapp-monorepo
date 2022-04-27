@@ -72,6 +72,31 @@ kind create cluster
 ```
 </details>
 
+#### HPA
+
+<details><summary>Horizontal Pod Autoscaler</summary>
+
+Para habilitar o HPA no cluster é preciso habilitar o **metrics-server**.
+
+Para acessar o repositório oficial [clique aqui](https://github.com/kubernetes-sigs/metrics-server).
+
+Porém para que ele funcione corretamente é preciso habilitar o uso de certificados auto-assinados no deployment. 
+
+Esse configuração foi feita adicionando as linhas abaixo no deployment original:
+
+```
+command:
+- /metrics-server
+- --kubelet-insecure-tls        
+```
+
+Para instalar o **metrics-server** com os certificados auto-assinados execute o comando abaixo:
+
+```
+kubectl apply -f ./k8s/metrics-server-kubelet-insecure-tls.yaml
+```
+</details>
+
 #### Istio (Service Mesh)
 
 Passos para instalação do Istio e visualização dos serviços via Kiali.
@@ -115,7 +140,7 @@ O Helm do monorepo deve ser instalado após a instalação do **Istio** para que
 ```
 kubectl create namespace java-monorepo
 kubectl label namespace java-monorepo istio-injection=enabled
-helm install java-monorepo ./.helm/java-monorepo -n java-monorepo
+helm install java-monorepo ./k8s/charts/java-monorepo -n java-monorepo
 kubectl get pods -n java-monorepo
 kubectl port-forward svc/app-bar -n java-monorepo 8080:80
 ```
@@ -126,7 +151,9 @@ Para acessar o app-bar [clique aqui](http://localhost:8080/app-bar/track).
 
 ---
 
-## JMeter (Teste de carga)
+## Teste de carga
+
+### JMeter
 
 <details><summary>Você pode executar os testes via Git Actions e fazer o download dos resultados ou também pode executá-los localmente.</summary>
 
@@ -143,4 +170,14 @@ Na pasta `/bin` do JMeter execute o comando:
 ```
 ./jmeter.sh -n -t "/PATH-PROJETO/java-monorepo/apps/bar/src/main/resources/simple.jmx" -l "/PATH-PROJETO/java-monorepo/apps/bar/target/jmeter/results.csv" -e -o "/PATH-PROJETO/java-monorepo/apps/bar/target/jmeter/output"
 ```
+</details>
+
+### Bash
+
+<details><summary>Exemplo de teste de carga via bash</summary>
+
+```
+while true; do wget -q -O- http://localhost:8080/app-bar;done;
+```
+
 </details>

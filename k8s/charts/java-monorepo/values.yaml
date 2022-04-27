@@ -141,11 +141,11 @@ appBar:
   # -- Add Pod Annotations
   podAnnotations: {}
     #linkerd.io/inject: enabled
-  hpa:
+  hpa: {}
     ## Horizontal Pod Autoscaler
-    minReplicaCount: 1
-    maxReplicaCount: 10
-    averageUtilization: 60
+    #minReplicaCount: 1
+    #maxReplicaCount: 4
+    #averageUtilization: 60
   metrics:
     # -- Enable exposing statistics
     enabled: false
@@ -258,11 +258,11 @@ appBaz:
   # -- Add Pod Annotations
   podAnnotations: {}
   #linkerd.io/inject: enabled
-  hpa:
+  hpa: {}
     ## Horizontal Pod Autoscaler
-    minReplicaCount: 1
-    maxReplicaCount: 10
-    averageUtilization: 60
+    #minReplicaCount: 1
+    #maxReplicaCount: 4
+    #averageUtilization: 60
   metrics:
     # -- Enable exposing statistics
     enabled: false
@@ -374,11 +374,11 @@ appFoo:
   # -- Add Pod Annotations
   podAnnotations: {}
   #linkerd.io/inject: enabled
-  hpa:
+  hpa: {}
     ## Horizontal Pod Autoscaler
-    minReplicaCount: 1
-    maxReplicaCount: 10
-    averageUtilization: 80
+    #minReplicaCount: 1
+    #maxReplicaCount: 4
+    #averageUtilization: 60
   metrics:
     # -- Enable exposing statistics
     enabled: false
