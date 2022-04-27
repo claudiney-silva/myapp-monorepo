@@ -45,27 +45,36 @@ jobs:
 
       - name: Prep Helm Chart
         run: |
-          mv ./.helm/java-monorepo/Chart.yaml ./.helm/java-monorepo/Chart.old.yaml &&
-          cat ./.helm/java-monorepo/Chart.old.yaml | grep -v appVersion > ./.helm/java-monorepo/Chart.yaml &&
-          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./.helm/java-monorepo/Chart.yaml &&
-          cat ./.helm/java-monorepo/Chart.yaml
+          mv ./k8s/charts/java-monorepo/Chart.yaml ./k8s/charts/java-monorepo/Chart.old.yaml &&
+          cat ./k8s/charts/java-monorepo/Chart.old.yaml | grep -v appVersion > ./k8s/charts/java-monorepo/Chart.yaml &&
+          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./k8s/charts/java-monorepo/Chart.yaml &&
+          cat ./k8s/charts/java-monorepo/Chart.yaml
 
       - name: Prep AppDynamics configs
         run: |
-          cp ./.helm/java-monorepo/values.yaml ./.helm/java-monorepo/values.bkp.yaml
-          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./.helm/java-monorepo/values.yaml
-          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./.helm/java-monorepo/values.yaml
-          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./.helm/java-monorepo/values.yaml
+          cp ./k8s/charts/java-monorepo/values.yaml ./k8s/charts/java-monorepo/values.bkp.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./k8s/charts/java-monorepo/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./k8s/charts/java-monorepo/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./k8s/charts/java-monorepo/values.yaml
 
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
-          exec: helm upgrade java-monorepo ./.helm/java-monorepo/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./.helm/java-monorepo/values.yaml
+          exec: helm upgrade java-monorepo ./k8s/charts/java-monorepo/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./k8s/charts/java-monorepo/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
+       
+  sleep:
+    needs:
+      - 'deploy-helm-chart'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep
+        run: |
+          sleep 20s
 
   is-alive-app-bar:
     needs:
-      - 'deploy-helm-chart'
+      - 'sleep'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: bar
@@ -74,7 +83,7 @@ jobs:
 
   is-alive-app-baz:
     needs:
-      - 'deploy-helm-chart'
+      - 'sleep'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: baz
@@ -83,7 +92,7 @@ jobs:
 
   is-alive-app-foo:
     needs:
-      - 'deploy-helm-chart'
+      - 'sleep'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: foo
