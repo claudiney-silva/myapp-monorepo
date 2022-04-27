@@ -1,12 +1,14 @@
 # Java Monorepo
 
+## Deploy CI/CD via Git Hub Actions
+
 <p align="left">
   <img alt="Java Monorepo" src="https://github.com/claudiney-silva/java-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
 </p>
 
 Exemplo de **Monorepo** com **Maven/Springboot** e deploy em **K8S** com **Helm Chart** utilizando **Github Actions**.
 
-## Git flow
+### Git flow
 
 <details><summary>Fluxo Git Flow</summary>
 
@@ -15,39 +17,36 @@ Exemplo de **Monorepo** com **Maven/Springboot** e deploy em **K8S** com **Helm 
 
 ---
 
-# Istio (Service Mesh)
+## Cluster Kubernetes Local
 
-Passos para instalação do Istio e visualização dos serviços via Kiali.
+Passo a passo para configuração localmente:
 
-Requisitos:
-- Cluster Kubernetes com permissões elevadas (usaremos o Kind)
-- Kubectl
-- Helm
+### Instalação / Configuração do Ambiente
 
+#### Docker
 
-## Kind
-<details><summary>Kind install and custer creation</summary>
+<details><summary>Docker install</summary>
+
+Após a instalação é necessário reiniciar a sessão para que as permissões sejam atribuídas
 
 ```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.12.0/kind-linux-amd64
-chmod +x ./kind
-sudo mv ./kind /usr/local/bin/kind
-kind create cluster --name my-cluster
+sudo curl -L https://get.docker.com/ | bash
+sudo usermod -aG docker $USER
 ```
+
 </details>
 
-## Kubectl
+#### Kubectl
 
 <details><summary>Kubectl install</summary>
 
 ```
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-kubectl version --client
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 </details>
 
-## Helm
+#### Helm
 
 <details><summary>Helm install</summary>
 
@@ -61,18 +60,32 @@ helm version
 ```
 </details>
 
-## Istio
+#### Kind
+
+<details><summary>Kind install and custer creation</summary>
+
+```
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.12.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin
+kind create cluster
+```
+</details>
+
+#### Istio (Service Mesh)
+
+Passos para instalação do Istio e visualização dos serviços via Kiali.
 
 <details><summary>Istio install, configure Kind Cluster and Add-ons (Kiali, Prometheus, Grafana, etc)</summary>
 
-### Download
+##### Download
 ```
 curl -L https://istio.io/downloadIstio | sh -
 cd istio-1.13.3
 export PATH=$PWD/bin:$PATH
 ```
 
-### Install on Kind cluster
+##### Install on Kind cluster
 ```
 kubectl create namespace istio-system
 helm install istio-base manifests/charts/base -n istio-system
@@ -82,7 +95,7 @@ helm install istio-egress manifests/charts/gateways/istio-egress -n istio-system
 kubectl get pods -n istio-system
 ```
 
-### Kiali, Prometheus, Grafana, etc install
+##### Kiali, Prometheus, Grafana, etc install
 ```
 kubectl apply -f samples/addons
 kubectl get svc -n istio-system
@@ -90,9 +103,11 @@ kubectl port-forward svc/kiali -n istio-system 20001
 ```
 
 Para acessar a interface do Kiali [clique aqui](http://localhost:20001).
+
 </details>
 
-## Java-Monorepo
+
+#### Java-Monorepo
 
 <details><summary>Java-Monorepo install no Kind cluster com Istio injetando envoy</summary>
 
@@ -111,7 +126,7 @@ Para acessar o app-bar [clique aqui](http://localhost:8080/app-bar/track).
 
 ---
 
-# JMeter (Teste de carga)
+## JMeter (Teste de carga)
 
 <details><summary>Você pode executar os testes via Git Actions e fazer o download dos resultados ou também pode executá-los localmente.</summary>
 
@@ -119,7 +134,7 @@ Para acessar o app-bar [clique aqui](http://localhost:8080/app-bar/track).
 
 ![JMeter Test Results](docs/jmeter-test-results.png)
 
-## Download and Plan Test
+## Localmente and Plan Test
 
 Faça o [download](https://jmeter.apache.org/download_jmeter.cgi) do JMeter e crie um plano de testes pela ferramenta visual.
 

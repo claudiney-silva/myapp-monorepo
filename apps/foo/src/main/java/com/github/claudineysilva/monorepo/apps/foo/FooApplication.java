@@ -24,10 +24,9 @@ public class FooApplication {
 	@SneakyThrows
 	@GetMapping("app-foo")
 	FooDto foo() {
-
-		int sleep = new Random().nextInt(3);
-		log.info(String.format("Sleeping for %s seconds", sleep));
-		Thread.sleep(sleep * 1000);
+		//int sleep = new Random().nextInt(3);
+		//log.info(String.format("Sleeping for %s seconds", sleep));
+		//Thread.sleep(sleep * 1000);
 		return FooDto.builder().id(UUID.randomUUID().toString()).fooAttribute("fooValue").build();
 	}
 

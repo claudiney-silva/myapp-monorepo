@@ -110,7 +110,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 30
+    initialDelaySeconds: 15
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -118,7 +118,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 30
+    initialDelaySeconds: 15
     timeoutSeconds: 5
     periodSeconds: 20
   resources:
@@ -141,25 +141,11 @@ appBar:
   # -- Add Pod Annotations
   podAnnotations: {}
     #linkerd.io/inject: enabled
-  scaledObject:
-    ## Example Cron
-    pollingInterval:  30     # Optional. Default: 30 seconds
-    cooldownPeriod:   300    # Optional. Default: 300 seconds
-    idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
-    minReplicaCount:  1      # Optional. Default: 0
-    maxReplicaCount:  3      # Optional. Default: 100
-    triggers:
-    - type: cpu
-      metadata:
-        # Required
-        type: Utilization/AverageValue
-        value: "60"
-    #- type: cron
-    #  metadata:
-    #    timezone: America/Sao_Paulo
-    #    start: 00 06 * * 1-7 # At 07:00 on every day-of-week from Monday through Sunday.
-    #    end: 00 22 * * 1-7 # At 22:00 on every day-of-week from Monday through Sunday.
-    #    desiredReplicas: "6"
+  hpa:
+    ## Horizontal Pod Autoscaler
+    minReplicaCount: 1
+    maxReplicaCount: 10
+    averageUtilization: 60
   metrics:
     # -- Enable exposing statistics
     enabled: false
@@ -241,7 +227,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 30
+    initialDelaySeconds: 15
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -249,7 +235,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 120
+    initialDelaySeconds: 15
     timeoutSeconds: 5
     periodSeconds: 20
   resources:
@@ -272,20 +258,11 @@ appBaz:
   # -- Add Pod Annotations
   podAnnotations: {}
   #linkerd.io/inject: enabled
-  scaledObject: {}
-    ## Example Cron
-    #pollingInterval:  30     # Optional. Default: 30 seconds
-    #cooldownPeriod:   300    # Optional. Default: 300 seconds
-    #idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
-    #minReplicaCount:  1      # Optional. Default: 0
-    #maxReplicaCount:  100    # Optional. Default: 100
-    #triggers:
-    #- type: cron
-    #  metadata:
-    #    timezone: America/Sao_Paulo
-    #    start: 00 06 * * 1-7 # At 07:00 on every day-of-week from Monday through Sunday.
-    #    end: 00 22 * * 1-7 # At 22:00 on every day-of-week from Monday through Sunday.
-  #    desiredReplicas: "6"
+  hpa:
+    ## Horizontal Pod Autoscaler
+    minReplicaCount: 1
+    maxReplicaCount: 10
+    averageUtilization: 60
   metrics:
     # -- Enable exposing statistics
     enabled: false
@@ -366,7 +343,7 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 30
+    initialDelaySeconds: 15
     timeoutSeconds: 5
     periodSeconds: 20
   # -- Readiness configuration
@@ -374,10 +351,10 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 120
+    initialDelaySeconds: 15
     timeoutSeconds: 5
     periodSeconds: 20
-  resources: {}
+  resources:
     ## We usually recommend not to specify default resources and to leave this as a conscious
     ## choice for the user. This also increases chances charts run on environments with little
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -397,20 +374,11 @@ appFoo:
   # -- Add Pod Annotations
   podAnnotations: {}
   #linkerd.io/inject: enabled
-  scaledObject: {}
-    ## Example Cron
-    #pollingInterval:  30     # Optional. Default: 30 seconds
-    #cooldownPeriod:   300    # Optional. Default: 300 seconds
-    #idleReplicaCount: 0      # Optional. Must be less than minReplicaCount
-    #minReplicaCount:  1      # Optional. Default: 0
-    #maxReplicaCount:  100    # Optional. Default: 100
-    #triggers:
-    #- type: cron
-    #  metadata:
-    #    timezone: America/Sao_Paulo
-    #    start: 00 06 * * 1-7 # At 07:00 on every day-of-week from Monday through Sunday.
-  #    end: 00 22 * * 1-7 # At 22:00 on every day-of-week from Monday through Sunday.
-  #    desiredReplicas: "6"
+  hpa:
+    ## Horizontal Pod Autoscaler
+    minReplicaCount: 1
+    maxReplicaCount: 10
+    averageUtilization: 80
   metrics:
     # -- Enable exposing statistics
     enabled: false
