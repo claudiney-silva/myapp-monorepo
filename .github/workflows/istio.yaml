@@ -13,6 +13,6 @@ jobs:
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
-          exec: helm upgrade my-istio ./.helm/my-istio/ --install --wait --atomic --namespace=istio-claudiney-silva --set=app.name=my-istio --values=./.helm/my-istio/values.yaml
+          exec: helm upgrade my-istio ./k8s/charts/my-istio/ --install --wait --atomic --namespace=istio-claudiney-silva --set=app.name=my-istio --values=./k8s/charts/my-istio/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
 

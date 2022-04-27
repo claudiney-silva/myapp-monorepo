@@ -11,7 +11,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {{ include "java-monorepo.fullname" . }}-core
+      app: {{ include "java-monorepo.fullname" . }}
   endpoints:
   - interval: {{ .Values.appBar.metrics.serviceMonitor.interval }}
     port: http
