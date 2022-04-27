@@ -110,16 +110,16 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
     periodSeconds: 20
   # -- Readiness configuration
   readinessProbe:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
     periodSeconds: 20
   resources:
     ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -227,16 +227,16 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
     periodSeconds: 20
   # -- Readiness configuration
   readinessProbe:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
     periodSeconds: 20
   resources:
     ## We usually recommend not to specify default resources and to leave this as a conscious
@@ -343,16 +343,16 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
     periodSeconds: 20
   # -- Readiness configuration
   readinessProbe:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
     periodSeconds: 20
   resources:
     ## We usually recommend not to specify default resources and to leave this as a conscious
