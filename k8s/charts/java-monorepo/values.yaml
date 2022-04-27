@@ -127,10 +127,10 @@ appBar:
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      cpu: 250m
+      cpu: 400m
       memory: 256Mi
     requests:
-      cpu: 250m
+      cpu: 400m
       memory: 256Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
@@ -244,10 +244,10 @@ appBaz:
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      cpu: 250m
+      cpu: 400m
       memory: 256Mi
     requests:
-      cpu: 250m
+      cpu: 400m
       memory: 256Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
@@ -360,10 +360,10 @@ appFoo:
     ## resources, such as Minikube. If you do want to specify resources, uncomment the following
     ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      cpu: 250m
+      cpu: 400m
       memory: 256Mi
     requests:
-      cpu: 250m
+      cpu: 400m
       memory: 256Mi
   # site.nodeSelector -- Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   nodeSelector: {}
