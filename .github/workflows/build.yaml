@@ -62,10 +62,19 @@ jobs:
         with:
           exec: helm upgrade java-monorepo ./k8s/charts/java-monorepo/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./k8s/charts/java-monorepo/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
+       
+  sleep:
+    needs:
+      - 'deploy-helm-chart'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep
+        run: |
+          sleep 10s
 
   is-alive-app-bar:
     needs:
-      - 'deploy-helm-chart'
+      - 'sleep'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: bar
@@ -74,7 +83,7 @@ jobs:
 
   is-alive-app-baz:
     needs:
-      - 'deploy-helm-chart'
+      - 'sleep'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: baz
@@ -83,7 +92,7 @@ jobs:
 
   is-alive-app-foo:
     needs:
-      - 'deploy-helm-chart'
+      - 'sleep'
     uses: ./.github/workflows/is-alive-reusable.yaml
     with:
       app-name: foo
