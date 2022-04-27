@@ -70,7 +70,7 @@ jobs:
     steps:
       - name: Sleep
         run: |
-          sleep 10s
+          sleep 20s
 
   is-alive-app-bar:
     needs:
