@@ -110,7 +110,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 20
   # -- Readiness configuration
@@ -118,7 +118,7 @@ appBar:
     httpGet:
       path: /app-bar/actuator/health
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 20
   resources:
@@ -227,7 +227,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 60
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 20
   # -- Readiness configuration
@@ -235,7 +235,7 @@ appBaz:
     httpGet:
       path: /app-baz/actuator/health
       port: 8081
-    initialDelaySeconds: 60
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 20
   resources:
@@ -343,7 +343,7 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 60
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 20
   # -- Readiness configuration
@@ -351,7 +351,7 @@ appFoo:
     httpGet:
       path: /app-foo/actuator/health
       port: 8082
-    initialDelaySeconds: 60
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 20
   resources:
