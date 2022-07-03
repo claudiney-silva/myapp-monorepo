@@ -1,12 +1,17 @@
 # Java Monorepo
 
-## Deploy CI/CD via Git Hub Actions
+[![Build, Image and Deploy](https://github.com/claudiney-silva/java-monorepo/actions/workflows/build.yaml/badge.svg)](https://github.com/claudiney-silva/java-monorepo/actions/workflows/build.yaml)
 
 <p align="left">
   <img alt="Java Monorepo" src="https://github.com/claudiney-silva/myapp-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
 </p>
 
+## Git Hub Actions
+
+<details><summary>Deploy CI/CD via Git Hub Actions</summary>
+
 Exemplo de **Monorepo** com **Maven/Springboot** e deploy em **K8S** com **Helm Chart** utilizando **Github Actions**.
+</details>
 
 ### Git flow
 
