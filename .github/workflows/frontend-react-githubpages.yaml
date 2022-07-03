@@ -4,8 +4,8 @@ on:
   push:
     tags:
       - '[0-9]+.[0-9]+.[0-9]+'
-    #paths:
-    #  - frontends/react-ts/**
+    paths:
+      - frontends/react-ts/**
   workflow_dispatch:
 
 jobs:
@@ -24,10 +24,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-        run: |
-          cd ./frontends/react-ts
-          npm ci
-          npm run build
+      - run: cd ./frontends/react-ts
+      - run: npm ci
+      - run: npm run build
 
       - name: Init new repo in dist folder and commit generated files
         run: |
