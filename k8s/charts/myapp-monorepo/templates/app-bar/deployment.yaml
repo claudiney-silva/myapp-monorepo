@@ -1,0 +1,69 @@
+{{- if .Values.appBar.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appBar.label }}
+  labels:
+    {{- include "myapp-monorepo.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.appBar.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appBar.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appBar.label }}
+      annotations:
+      {{- with .Values.appBar.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+        checksum/config: {{ include (print $.Template.BasePath "/app-bar/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/app-bar/secrets.yaml") . | sha256sum }}
+    spec:
+      {{- if .Values.appBar.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.appBar.imagePullSecrets.name }}
+      {{- end }}
+      serviceAccountName: {{ include "myapp-monorepo.serviceAccountName" . }}
+      containers:
+        - name: {{ .Values.appBar.label }}
+          image: "{{ .Values.appBar.image.repository }}:{{ .Values.appBar.image.tag }}"
+          imagePullPolicy: {{ .Values.appBar.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.appBar.service.containerPort }}
+              protocol: TCP
+          {{- with .Values.appBar.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.appBar.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          env:
+          {{- if .Values.appBar.metrics.enabled }}
+            - name: METRICS
+              value: "true"
+          {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.appBar.label }}-secret
+            - configMapRef:
+                name: {{ .Values.appBar.label }}-config
+          resources:
+            {{- toYaml .Values.appBar.resources | nindent 12 }}
+    {{- with .Values.appBar.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.appBar.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.appBar.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- end }}

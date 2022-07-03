@@ -3,7 +3,7 @@
 ## Deploy CI/CD via Git Hub Actions
 
 <p align="left">
-  <img alt="Java Monorepo" src="https://github.com/claudiney-silva/java-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
+  <img alt="Java Monorepo" src="https://github.com/claudiney-silva/myapp-monorepo/workflows/Build,%20Image%20and%20Deploy/badge.svg">
 </p>
 
 Exemplo de **Monorepo** com **Maven/Springboot** e deploy em **K8S** com **Helm Chart** utilizando **Github Actions**.
@@ -132,17 +132,17 @@ Para acessar a interface do Kiali [clique aqui](http://localhost:20001).
 </details>
 
 
-#### Java-Monorepo
+#### myapp-monorepo
 
-<details><summary>Java-Monorepo install no Kind cluster com Istio injetando envoy</summary>
+<details><summary>myapp-monorepo install no Kind cluster com Istio injetando envoy</summary>
 
 O Helm do monorepo deve ser instalado após a instalação do **Istio** para que o proxy **envoy** seja injetado nos PODs.
 ```
-kubectl create namespace java-monorepo
-kubectl label namespace java-monorepo istio-injection=enabled
-helm install java-monorepo ./k8s/charts/java-monorepo -n java-monorepo
-kubectl get pods -n java-monorepo
-kubectl port-forward svc/app-bar -n java-monorepo 8080:80
+kubectl create namespace myapp-monorepo
+kubectl label namespace myapp-monorepo istio-injection=enabled
+helm install myapp-monorepo ./k8s/charts/myapp-monorepo -n myapp-monorepo
+kubectl get pods -n myapp-monorepo
+kubectl port-forward svc/app-bar -n myapp-monorepo 8080:80
 ```
 
 Para acessar o app-bar [clique aqui](http://localhost:8080/app-bar/track).
@@ -168,7 +168,7 @@ Faça o [download](https://jmeter.apache.org/download_jmeter.cgi) do JMeter e cr
 Na pasta `/bin` do JMeter execute o comando:
 
 ```
-./jmeter.sh -n -t "/PATH-PROJETO/java-monorepo/apps/bar/src/main/resources/simple.jmx" -l "/PATH-PROJETO/java-monorepo/apps/bar/target/jmeter/results.csv" -e -o "/PATH-PROJETO/java-monorepo/apps/bar/target/jmeter/output"
+./jmeter.sh -n -t "/PATH-PROJETO/myapp-monorepo/apps/bar/src/main/resources/simple.jmx" -l "/PATH-PROJETO/myapp-monorepo/apps/bar/target/jmeter/results.csv" -e -o "/PATH-PROJETO/myapp-monorepo/apps/bar/target/jmeter/output"
 ```
 </details>
 

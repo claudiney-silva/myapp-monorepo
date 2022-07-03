@@ -1,0 +1,33 @@
+{{- if .Values.appBar.migrations.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.appBar.label }}-migration
+  labels:
+    {{- include "myapp-monorepo.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: post-install, post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation, hook-succeeded
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appBar.label }}-worker
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}
+      {{- end }}
+      serviceAccountName: {{ include "myapp-monorepo.serviceAccountName" . }}
+      containers:
+        - name: migration-job
+          image: "{{ .Values.appBar.image.repository }}:{{ .Values.appBar.image.tag }}"
+          imagePullPolicy: {{ .Values.appBar.image.pullPolicy }}
+          command: ["sh", "-c", "sleep 5 && npm run migration:up"]
+          envFrom:
+            - secretRef:
+                name: {{ .Values.appBar.label }}-secret
+            - configMapRef:
+                name: {{ .Values.appBar.label }}-config
+      restartPolicy: "Never"
+{{- end }}

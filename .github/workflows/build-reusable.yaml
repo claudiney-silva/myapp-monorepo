@@ -55,8 +55,8 @@ jobs:
       #    context: ./apps/${{ inputs.app-name }}
       #    push: true
       #    tags: |
-      #      ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:latest
-      #      ${{ secrets.docker-username }}/java-monorepo.apps.${{ inputs.app-name }}:${{ env.TAG_VERSION }}
+      #      ${{ secrets.docker-username }}/myapp-monorepo.apps.${{ inputs.app-name }}:latest
+      #      ${{ secrets.docker-username }}/myapp-monorepo.apps.${{ inputs.app-name }}:${{ env.TAG_VERSION }}
 
       - uses: azure/docker-login@v1
         with:
