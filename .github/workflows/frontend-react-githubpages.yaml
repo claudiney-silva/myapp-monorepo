@@ -31,19 +31,11 @@ jobs:
           npm ci
           npm run build
 
-      - name: Init new repo in dist folder and commit generated files
-        run: |
-          cd ./frontends/react-ts/build
-          git init
-          git add -A
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m 'Deploy React Frontend ${{env.TAG_VERSION}}'
-
-      - name: Force push to destination branch
-        uses: ad-m/github-push-action@v0.5.0
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          force: true # Use force push to fully overwrite the destination branch
-          directory: ./frontends/react-ts/build
+          branch: main
+          folder: ./frontends/react-ts/build
+          repositorty-name: claudiney-silva/effetivo.github.io
+          target-folder: /
+          force: true
