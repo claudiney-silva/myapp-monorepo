@@ -44,6 +44,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          ssh: true
           branch: gh-pages
           repository: claudiney-silva/effetivo.github.io
           force: true # Use force push to fully overwrite the destination branch
