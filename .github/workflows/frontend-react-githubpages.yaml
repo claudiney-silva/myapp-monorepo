@@ -16,7 +16,7 @@ jobs:
       - name: Prepare
         run: |
           echo "TAG_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
-          echo "secret: ${{ secrets.GITHUB_TOKEN }}"
+          echo "secret: ${{ secrets.GITHUB_TOKENX }}"
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
       - name: Force push to destination repository 🚀
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKENX }}
           branch: gh-pages
           repository: claudiney-silva/effetivo.github.io
           force: true # Use force push to fully overwrite the destination branch
