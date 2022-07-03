@@ -1,0 +1,19 @@
+{{- if and (.Values.appBaz.enabled) (.Values.appBaz.metrics.enabled) (.Values.appBaz.metrics.serviceMonitor.enabled ) }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app-baz
+  labels:
+    {{- include "myapp-monorepo.labels" . | nindent 4 }}
+		{{- with .Values.appBaz.metrics.serviceMonitor.additionalLabels }}
+    	{{- toYaml . | nindent 4 }}
+  	{{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "myapp-monorepo.fullname" . }}
+  endpoints:
+  - interval: {{ .Values.appBaz.metrics.serviceMonitor.interval }}
+    port: http
+    scrapeTimeout: {{ .Values.appBaz.metrics.serviceMonitor.scrapeTimeout }}
+{{- end }}
