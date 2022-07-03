@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test-image:
+  publish-github-pages:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '16'
       - run: cd ./frontends/react-ts
-      - run: npm ci
+      #- run: npm ci
       - run: npm run build
 
       - name: Init new repo in dist folder and commit generated files
