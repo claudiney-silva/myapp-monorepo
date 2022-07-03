@@ -1,3 +1,0 @@
-server.port: 8082
-
-management.endpoints.web.base-path: '/app-foo/actuator'
