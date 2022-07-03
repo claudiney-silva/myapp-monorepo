@@ -32,10 +32,11 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.3.4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: main
+          branch: gh-pages
           folder: ./frontends/react-ts/build
           repositorty-name: claudiney-silva/effetivo.github.io
+          commit-message:  'React frontend ${{env.TAG_VERSION}}'
           target-folder: /
           force: true
