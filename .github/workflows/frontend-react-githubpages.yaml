@@ -37,11 +37,11 @@ jobs:
           cd ./frontends/react-ts/build
           git init
           git add -A
-          git config --local user.email "clau.li.erd@gmail.com"
-          git config --local user.name "claudiney-silva"
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
           git commit -m '🚀 Deploy React Frontend - version: ${{env.TAG_VERSION}}'
 
-      - name: 🚀 Force push to destination branch
+      - name: Force push to destination repository 🚀
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
