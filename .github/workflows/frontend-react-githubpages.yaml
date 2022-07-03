@@ -16,6 +16,7 @@ jobs:
       - name: Prepare
         run: |
           echo "TAG_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          echo "secret: ${{ secrets.GITHUB_TOKEN }}"
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
