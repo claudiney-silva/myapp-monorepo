@@ -1,0 +1,45 @@
+name: Frontend React on Github Pages
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  build-test-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare
+        run: |
+          echo "TAG_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate static files
+          uses: actions/setup-node@v2
+          with:
+            node-version: '16'
+        - run: |
+            cd ./frontends/react-ts
+            npm ci
+            npm run build
+
+      - name: Init new repo in dist folder and commit generated files
+        run: |
+          cd ./frontends/react-ts/build
+          git init
+          git add -A
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m 'deploy'
+
+      - name: Force push to destination branch
+        uses: ad-m/github-push-action@v0.5.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          force: true # Use force push to fully overwrite the destination branch
+          directory: ./frontends/react-ts/build

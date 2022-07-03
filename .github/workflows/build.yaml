@@ -45,22 +45,22 @@ jobs:
 
       - name: Prep Helm Chart
         run: |
-          mv ./k8s/charts/java-monorepo/Chart.yaml ./k8s/charts/java-monorepo/Chart.old.yaml &&
-          cat ./k8s/charts/java-monorepo/Chart.old.yaml | grep -v appVersion > ./k8s/charts/java-monorepo/Chart.yaml &&
-          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./k8s/charts/java-monorepo/Chart.yaml &&
-          cat ./k8s/charts/java-monorepo/Chart.yaml
+          mv ./k8s/charts/myapp-monorepo/Chart.yaml ./k8s/charts/myapp-monorepo/Chart.old.yaml &&
+          cat ./k8s/charts/myapp-monorepo/Chart.old.yaml | grep -v appVersion > ./k8s/charts/myapp-monorepo/Chart.yaml &&
+          echo -e "\r\nappVersion: ${GITHUB_REF##*/}\r\n" >> ./k8s/charts/myapp-monorepo/Chart.yaml &&
+          cat ./k8s/charts/myapp-monorepo/Chart.yaml
 
       - name: Prep AppDynamics configs
         run: |
-          cp ./k8s/charts/java-monorepo/values.yaml ./k8s/charts/java-monorepo/values.bkp.yaml
-          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./k8s/charts/java-monorepo/values.yaml
-          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./k8s/charts/java-monorepo/values.yaml
-          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./k8s/charts/java-monorepo/values.yaml
+          cp ./k8s/charts/myapp-monorepo/values.yaml ./k8s/charts/myapp-monorepo/values.bkp.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_NAME%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_NAME }}/g' ./k8s/charts/myapp-monorepo/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_CONTROLLER_HOST_NAME%/${{ secrets.APPDYNAMICS_CONTROLLER_HOST_NAME }}/g' ./k8s/charts/myapp-monorepo/values.yaml
+          sed -i.bak 's/%APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY%/${{ secrets.APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY }}/g' ./k8s/charts/myapp-monorepo/values.yaml
 
       - uses: WyriHaximus/github-action-helm3@v2
         name: Deploy
         with:
-          exec: helm upgrade java-monorepo ./k8s/charts/java-monorepo/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=java-monorepo --values=./k8s/charts/java-monorepo/values.yaml
+          exec: helm upgrade myapp-monorepo ./k8s/charts/myapp-monorepo/ --install --wait --atomic --namespace=${{ secrets.KUBENAMESPACE }} --set=app.name=myapp-monorepo --values=./k8s/charts/myapp-monorepo/values.yaml
           kubeconfig: '${{ secrets.KUBECONFIG }}'
        
   sleep:
