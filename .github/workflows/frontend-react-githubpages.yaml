@@ -36,11 +36,11 @@ jobs:
           cd ./frontends/react-ts/build
           git init
           git add -A
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m 'Deploy React Frontend ${{env.TAG_VERSION}}'
+          git config --local user.email "clau.li.erd@gmail.com"
+          git config --local user.name "claudiney-silva"
+          git commit -m '🚀 Deploy React Frontend - version: ${{env.TAG_VERSION}}'
 
-      - name: Force push to destination branch
+      - name: 🚀 Force push to destination branch
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
