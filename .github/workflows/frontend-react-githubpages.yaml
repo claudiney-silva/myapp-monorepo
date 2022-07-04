@@ -1,4 +1,4 @@
-name: Deploy Frontend React on Github Pages
+name: Build and Deploy Frontend React on Github Pages
 
 on:
   push:
@@ -47,7 +47,7 @@ jobs:
           git add -A
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
-          git commit -m '🚀 Deploy React Frontend - ${{ env.VERSION }} / ${{ env.HASH }}'
+          #git commit -m '🚀 React Frontend (${{ env.VERSION }}) - ${{ github.event.head_commit.message }}'
 
       - name: Force push to destination repository 🚀
         uses: ad-m/github-push-action@master
