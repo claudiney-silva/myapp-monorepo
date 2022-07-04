@@ -32,10 +32,10 @@ jobs:
           npm ci
           npm run build
 
-
       - name: Init new repo in dist folder and commit generated files
         run: |
-          cp -R ./frontends/githubpages ./frontends/react-ts/build
+          cp ./frontends/githubpages/CNAME ./frontends/react-ts/build
+          cp ./frontends/githubpages/LICENSE ./frontends/react-ts/build
           cd ./frontends/react-ts/build
           git init
           git add -A
