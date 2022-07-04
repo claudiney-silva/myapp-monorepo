@@ -23,6 +23,8 @@ jobs:
       - name: Prepare 🔧
         run: |
           echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          echo $GITHUB_SHA
+          echo ${GITHUB_SHA}
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
