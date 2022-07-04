@@ -16,7 +16,7 @@ jobs:
       - name: Prepare 🔧
         run: |
           echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
-          echo "HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_HASH
+          echo "HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
