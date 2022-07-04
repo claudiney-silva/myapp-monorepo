@@ -13,10 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Declare some variables
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Prepare 🔧
         run: |
           echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
-          echo "HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -40,7 +46,7 @@ jobs:
           git add -A
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
-          git commit -m '🚀 Deploy React Frontend - ${{env.VERSION}} / ${{env.HASH}}'
+          git commit -m '🚀 Deploy React Frontend - ${{ steps.vars.outputs.branch }} / ${{ steps.vars.outputs.sha_short }}'
 
       - name: Force push to destination repository 🚀
         uses: ad-m/github-push-action@master
