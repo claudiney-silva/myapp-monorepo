@@ -1,4 +1,4 @@
-name: Frontend React on Github Pages
+name: Deploy Frontend React on Github Pages
 
 on:
   push:
