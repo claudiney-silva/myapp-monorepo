@@ -23,8 +23,7 @@ jobs:
       - name: Prepare 🔧
         run: |
           echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
-          echo $GITHUB_SHA
-          echo ${GITHUB_SHA::6}
+          echo "HASH=${GITHUB_SHA::10}" >> $GITHUB_ENV
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -48,7 +47,7 @@ jobs:
           git add -A
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
-          git commit -m '🚀 Deploy React Frontend - ${{ steps.vars.outputs.branch }} / ${{ steps.vars.outputs.sha_short }}'
+          git commit -m '🚀 Deploy React Frontend - ${{ env.VERSION }} / ${{ env.HASH }}'
 
       - name: Force push to destination repository 🚀
         uses: ad-m/github-push-action@master
