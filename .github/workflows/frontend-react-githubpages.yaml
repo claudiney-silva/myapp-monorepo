@@ -13,13 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Declare some variables
-        id: vars
-        shell: bash
-        run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-
       - name: Prepare 🔧
         run: |
           echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
