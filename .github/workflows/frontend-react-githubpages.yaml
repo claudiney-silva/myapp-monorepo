@@ -52,7 +52,7 @@ jobs:
       - name: Force push to destination repository 🚀
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GIT_PAT }}
+          github_token: ${{ secrets.MYAPP_PAT }}
           branch: main
           repository: claudiney-silva/effetivo.github.io
           force: true # Use force push to fully overwrite the destination branch
