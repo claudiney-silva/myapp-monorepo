@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-test-image:
+  build-deploy-site:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +36,7 @@ jobs:
           cd ./frontends/react-ts/build
           git init
           git add -A
+          git config --global --add safe.directory ./
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git commit -m 'deploy'
