@@ -24,6 +24,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
+          
+      - name: Build    
         run: |
           cd ./frontends/react-ts
           npm ci
