@@ -20,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate static files
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
           node-version: '16'
@@ -36,8 +36,8 @@ jobs:
           cd ./frontends/react-ts/build
           git init
           git add -A
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git commit -m 'deploy'
 
       - name: Force push to destination branch
